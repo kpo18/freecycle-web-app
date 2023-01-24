@@ -27,6 +27,11 @@ h4 {
     padding-bottom: 20px; 
 }
 
+.page-container {
+    position: relative; 
+    min-height: 100vh; 
+}
+
 .logo {
     width: 160px; 
     height: auto; 
@@ -115,8 +120,7 @@ h4 {
       margin: auto;  
   }
 
-  .main {
-    background-color: #F2F7F5; 
+  .main { 
     color: #314F50;
     padding: 50px; 
   }
@@ -149,7 +153,10 @@ h4 {
       background-color:  #314F50;
       color: white; 
       text-align: center; 
-      padding: 15px; 
+      padding: 15px;  
+      position: absolute; 
+      bottom: 0;
+      width: 100%;  
   }
 
   @media screen and (min-width: 640px) {
