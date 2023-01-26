@@ -1,28 +1,31 @@
 import React from "react"; 
-import Button from "../components/Button"; 
-import MenuItem from "../components/MenuItem"; 
+import Header from "../components/Header"; 
+import { useNavigate, Navigate } from "react-router-dom";
 
 
 export function Home({items}) {
+    const navigate = useNavigate(); 
+
+    // AddItem
+    const addItem = () => {
+        navigate("/new"); 
+    }
+
+    // OpenItemDetail
+    const openItemDetail = (id) => {
+        console.log("open item", id); 
+        navigate(`/${id}`); 
+      }    
+
     return (
         <div className="page-container">
-            <header className="header">
-                <div className="container header-container">
-                <div>
-                    <img className="logo" src="assets/logo.svg" alt="SecondLife Logo"/>
-                    </div>
-                <div className="flex-end">
-                    <div><MenuItem text="Admin" /></div>
-                    <div><Button text="Add item" /></div>
-                </div>
-                </div>
-            </header>
+            <Header />
             <section className="hero">
                 <div className="container hero-container">
                     <div className="hero-text">
                     <h1>Get rid of stuff you no longer need</h1>
                     <h4>Find a new home for unloved items.</h4>
-                    <Button text="Add item" />
+                    <button className="btn" onClick={addItem}>Add item</button>
                     </div>
                     <div>
                     <img className="hero-img" src="assets/hero.png" alt="Hand giving raspberry"/>
@@ -37,7 +40,10 @@ export function Home({items}) {
                     <div className="items-grid">
                     {items.map((item, index) => {
                         return (
-                        <div key={index} className="items-card">
+                        <div 
+                            key={index} 
+                            className="items-card" 
+                            onClick={() => openItemDetail(item.id)}>
                             <img
                             className="items-img"
                             src={item.image}
