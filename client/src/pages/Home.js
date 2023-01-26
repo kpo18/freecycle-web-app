@@ -1,15 +1,30 @@
-import React from "react"; 
+import React, {useEffect, useState } from "react"; 
 import Header from "../components/Header"; 
-import { useNavigate, Navigate } from "react-router-dom";
+import Footer from "../components/Footer"; 
+import { Link, useNavigate } from "react-router-dom";
+import services from "../services"; 
 
 
-export function Home({items}) {
+export function Home() {
+    const [items, setItems] = useState([]); 
+
+    const getItems = () => {
+        services.productService.fetchAll()
+          .then(items => {
+            setItems(items);
+          })
+          .catch(error => {
+            console.log(error);
+          });
+      };
+
+    useEffect(() => {
+      getItems();
+    }, []);
+  
+    
+
     const navigate = useNavigate(); 
-
-    // AddItem
-    const addItem = () => {
-        navigate("/new"); 
-    }
 
     // OpenItemDetail
     const openItemDetail = (id) => {
@@ -25,7 +40,7 @@ export function Home({items}) {
                     <div className="hero-text">
                     <h1>Get rid of stuff you no longer need</h1>
                     <h4>Find a new home for unloved items.</h4>
-                    <button className="btn" onClick={addItem}>Add item</button>
+                    <Link to = "/new" className="btn" >Add item</Link>
                     </div>
                     <div>
                     <img className="hero-img" src="assets/hero.png" alt="Hand giving raspberry"/>
@@ -60,11 +75,8 @@ export function Home({items}) {
                 </div>
                 </div>
             </article>
-            <footer className="footer">
-                <div className="container">
-                <div>Made with 🤍 as an MVP project</div>
-                </div>
-            </footer>
+            <div className="spacer-50"></div>
+            <Footer />
         </div>
     ); 
 }

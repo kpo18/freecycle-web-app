@@ -1,16 +1,20 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
 
 h1 {
     font-size: 55px; 
     line-height: 57px; 
-    margin: 0; 
+    padding-bottom: 30px; 
 }
 
 h2 {
     font-size: 38px; 
     line-height: 40px; 
     font-weight: 800; 
-    margin: 0; 
-    padding-bottom: 20px; 
+    padding-bottom: 30px; 
 }
 
 h3 {
@@ -18,13 +22,16 @@ h3 {
     font-size: 20px; 
     line-height: 20px; 
     font-weight: 700; 
-    margin: 0; 
     padding-top: 10px; 
 }
 
 h4 {
     font-weight: 400; 
     padding-bottom: 20px; 
+}
+
+p {
+    padding: 10px 0px; 
 }
 
 .page-container {
@@ -123,7 +130,7 @@ h4 {
 
   .main { 
     color: #314F50;
-    padding: 50px; 
+    margin: 50px; 
   }
 
   .items-grid {
@@ -161,6 +168,66 @@ h4 {
       width: 100%;  
   }
 
+  .item-detail-card {
+      background-color: white; 
+  }
+
+  .item-detail-grid {
+    display: grid; 
+    grid-template-columns: repeat(1, 1fr); 
+    gap: 16px; 
+    margin: 0px; 
+  }
+
+  .item-detail-img {
+    object-fit: cover; 
+    width: 100%; 
+    aspect-ratio: 1; 
+  }
+
+  .item-detail-text {
+      padding: 30px; 
+      display: flex; 
+      flex-direction: column; 
+      justify-content: space-between; 
+  }
+
+  .item-detail-title {
+      font-size: 34px; 
+      padding-bottom: 10px; 
+  }
+
+  .horizontal-line {
+      border-top: 1px #eef4f4 solid; 
+  }
+
+  .item-detail-id {
+      padding: 15px 0px 0px 0px; 
+}
+
+  .item-detail-heading {
+      font-size: 16px;
+      font-weight: 700; 
+      padding: 30px 0px 0px 0px; 
+  }
+
+  .back-link {
+      font-size: 18px; 
+      line-height: 20px; 
+      font-weight: 700; 
+      color: #314F50;  
+      text-decoration: none; 
+      cursor: pointer; 
+  }
+
+  .spacer-20 {
+      height: 20px; 
+  }
+
+  .spacer-50 {
+      height: 50px; 
+  }
+
   @media screen and (min-width: 640px) {
         h1 {
             font-size: 55px; 
@@ -175,6 +242,7 @@ h4 {
         .items-grid {
             grid-template-columns: repeat(2, 1fr); 
         }
+        
   }
 
 
@@ -189,6 +257,11 @@ h4 {
         .items-grid {
             grid-template-columns: repeat(3, 1fr); 
         }
+        .item-detail-grid {
+            display: grid; 
+            grid-template-columns: repeat(2, 1fr); 
+        }
+        
         
   }
 

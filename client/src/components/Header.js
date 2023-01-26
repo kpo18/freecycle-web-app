@@ -1,30 +1,17 @@
 import React from "react";
-import { useNavigate, Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Header = () => {
-    const navigate = useNavigate(); 
-
-    const goToAdmin = () => {
-        navigate("/admin"); 
-    }
-
-    const addItem = () => {
-        navigate("/new"); 
-    }
-
-    const goToHome = () => {
-        navigate("/"); 
-    }
 
     return (
         <header className="header">
             <div className="container header-container">
-                <div onClick={goToHome}>
+                <Link to = "/">
                     <img className="logo" src="assets/logo.svg" alt="SecondLife Logo"/>
-                </div>
+                </Link>
                 <div className="flex-end">
-                    <button className="menu-item" onClick={goToAdmin}>Admin</button>
-                    <button className="btn" onClick={addItem}>Add item</button>
+                    <Link to = "/admin" className="menu-item" >Admin</Link>
+                    <Link to = "/new" className="btn" >Add item</Link>
                 </div>
             </div>
         </header>

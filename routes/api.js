@@ -22,7 +22,7 @@ router.get("/:id", async (req, res) => {
       res.status(404).send("Not found");
       return;
     }
-    res.send({ item });
+    res.send( response.data[0] );
   } catch (error) {
     res.status(500).send(error);
   }
