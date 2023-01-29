@@ -1,8 +1,8 @@
-import ProductService from "./ProductService"; 
+import ProductService from "./ProductService";
 
 const productService = new ProductService();
 const services = {
-    productService
-}
+  productService,
+};
 
-export default services; 
+export default services;

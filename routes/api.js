@@ -1,14 +1,14 @@
-var express = require('express');
+var express = require("express");
 var router = express.Router();
 const db = require("../model/helper");
 
 /* GET all listings. */
-router.get('/', function(req, res, next) {
+router.get("/", function (req, res, next) {
   db("SELECT * FROM items ORDER BY id ASC;")
-    .then(results => {
+    .then((results) => {
       res.send(results.data);
     })
-    .catch(err => res.status(500).send(err));
+    .catch((err) => res.status(500).send(err));
 });
 
 /* GET one listing. */
@@ -22,7 +22,7 @@ router.get("/:id", async (req, res) => {
       res.status(404).send("Not found");
       return;
     }
-    res.send( response.data[0] );
+    res.send(response.data[0]);
   } catch (error) {
     res.status(500).send(error);
   }
@@ -32,9 +32,9 @@ router.get("/:id", async (req, res) => {
 router.post("/", async (req, res) => {
   const title = req.body.title;
   const description = req.body.description;
-  const image = req.body.image; 
-  const location = req.body.location; 
-  const contact = req.body.contact; 
+  const image = req.body.image;
+  const location = req.body.location;
+  const contact = req.body.contact;
 
   try {
     const result = await db(
@@ -53,9 +53,10 @@ router.put("/:id", async (req, res) => {
   const id = Number(req.params.id);
   const title = req.body.title;
   const description = req.body.description;
-  const image = req.body.image; 
-  const location = req.body.location; 
-  const contact = req.body.contact; 
+  const image = req.body.image;
+  const location = req.body.location;
+  const contact = req.body.contact;
+  const available = req.body.available; 
 
   try {
     const response = await db(`SELECT * FROM items WHERE id = ${id}`);
@@ -67,7 +68,7 @@ router.put("/:id", async (req, res) => {
     }
 
     await db(
-      `UPDATE items SET title = '${title}', description = '${description}', image = '${image}', location = '${location}', contact = '${contact}' WHERE id = ${id}`
+      `UPDATE items SET title = '${title}', description = '${description}', image = '${image}', location = '${location}', contact = '${contact}', available = '${available}' WHERE id = ${id}`
     );
 
     const items = await db(`SELECT * FROM items`);
@@ -78,9 +79,7 @@ router.put("/:id", async (req, res) => {
   }
 });
 
-
-
-// DELETE an item from the DB 
+// DELETE an item from the DB
 router.delete("/:id", async (req, res) => {
   const id = Number(req.params.id);
   try {
