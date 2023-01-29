@@ -1,9 +1,55 @@
-import React from "react"; 
+import React, { useEffect, useState } from "react";
 import Header from "../components/Header"; 
 import Footer from "../components/Footer"; 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export function AddItem() {
+    let navigate = useNavigate();
+    const [error, setError] = useState("");
+    const [loading, setLoading] = useState(false);
+    const [item, setItem] = useState({
+        title: "",
+        description: "", 
+        image: "", 
+        location: "", 
+        contact: "", 
+    }); 
+
+    const handleChange = event => {
+        const target = event.target; 
+        const name = target.name; 
+        const value = target.value; 
+
+        setItem(item => ({...item, [name]: value })); 
+        console.log(item); 
+    }; 
+
+    const handleSubmit = event => {
+        event.preventDefault(); 
+        addItem(item);
+    }; 
+
+    const addItem = async item => {
+        setLoading(true);
+
+        try {
+            await fetch("http://localhost:5050/api", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(item)
+            });
+            navigate('/?success=1'); //navigates back to HP when item was added
+
+        } catch (error) {
+            setError("Oops! Something went wrong. Try again later");
+        } finally {
+            setLoading(false);
+        }
+    }
+
+
     return (
         <div className="page-container">
             <Header/>
@@ -13,37 +59,57 @@ export function AddItem() {
                     </Link>
                     <div className="spacer-20"></div>
                     <h2>Add new item</h2>
-                    <div>
-                        <form className="form-control">
+                    <div className="form-control">
+                        <form onSubmit={e => handleSubmit(e)}>
                             <div>
                                 <label>TITLE</label>
                             </div>
                             <div>
-                                <input type="text" placeholder="e.g. Old Sneakers" />
+                                <input 
+                                type="text" placeholder="e.g. Old Sneakers"
+                                value={item.title}
+                                name="title"
+                                onChange={e => handleChange(e)} />
                             </div>
                             <div>
                                 <label>DESCRIPTION</label>
                             </div>
                             <div>
-                                <input type="text" placeholder="e.g. size 42, only worn a few times." />
+                                <input 
+                                type="text" placeholder="e.g. size 42, only worn a few times."
+                                value={item.description}
+                                name="description"
+                                onChange={e => handleChange(e)} />
                             </div>
                             <div>
                                 <label>IMAGE</label>
                             </div>
                             <div>
-                                <input type="text" placeholder="upload a photo of your item" />
+                                <input 
+                                type="text" placeholder="upload a photo of your item"
+                                value={item.image}
+                                name="image"
+                                onChange={e => handleChange(e)} />
                             </div>
                             <div>
                                 <label>LOCATION</label>
                             </div>
                             <div>
-                                <input type="text" placeholder="add a London postcode or tube station" />
+                                <input 
+                                type="text" placeholder="add a London postcode or tube station"
+                                value={item.location}
+                                name="location"
+                                onChange={e => handleChange(e)} />
                             </div>
                             <div>
                                 <label>CONTACT INFO</label>
                             </div>
                             <div>
-                                <input type="text" placeholder="enter a phone number or email address" />
+                                <input 
+                                type="text" placeholder="enter a phone number or email address"
+                                value={item.contact}
+                                name="contact"
+                                onChange={e => handleChange(e)} />
                             </div>
                             <div>
                                 <button className="btn-submit" type="submit">Add item</button>

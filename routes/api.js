@@ -37,9 +37,10 @@ router.post("/", async (req, res) => {
   const contact = req.body.contact; 
 
   try {
-    await db(
+    const result = await db(
       `INSERT INTO items (title, description, image, location, contact) VALUES ('${title}', '${description}', '${image}', '${location}', '${contact}');`
     );
+    console.log(result);
     const response = await db("SELECT * FROM items");
     res.status(201).send(response);
   } catch (error) {
