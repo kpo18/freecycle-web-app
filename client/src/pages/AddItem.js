@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { Link, useNavigate } from "react-router-dom";
+import services from "../services";
 
 export function AddItem() {
   let navigate = useNavigate();
@@ -34,13 +35,7 @@ export function AddItem() {
     setLoading(true);
 
     try {
-      await fetch("http://localhost:5050/api", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(item),
-      });
+      await services.productService.create(item);
       navigate("/?success=1"); //navigates back to HP when item was added
     } catch (error) {
       setError("Oops! Something went wrong. Try again later");

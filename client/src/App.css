@@ -112,8 +112,8 @@ p {
 }
 
 .hero-img {
-  width: 400px;
-  height: auto;
+  width: 340px;
+  height: auto;  
 }
 
 .hero-text {
@@ -272,6 +272,40 @@ p {
     padding: 8px; 
     font-size: 14px; 
     font-weight: 400; 
+}
+
+.searchInputs {
+  margin-bottom: 50px; 
+  display: flex;   
+}
+
+.search input {
+  background-color: white; 
+  border: 0; 
+  border-radius: 2px; 
+  border-top-left-radius: 0px; 
+  border-bottom-left-radius: 0px; 
+  font-size: 16px; 
+  padding: 15px 15px 15px 0px; 
+  height: 35px; 
+  width: 100%; 
+  font-family: inherit; 
+}
+
+.searchIcon {
+  height: 35px; 
+  width: 40px; 
+  background-color: white; 
+  display: grid; 
+  place-items: center;
+}
+
+input:focus {
+  outline: none; 
+}
+
+.searchIcon svg {
+  font-size: 20px; 
 }
 
 @media screen and (min-width: 640px) {

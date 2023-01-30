@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import SearchBar from "../components/SearchBar";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import services from "../services";
+import SearchIcon from "@material-ui/icons/Search";
 
 export function Home() {
   const [items, setItems] = useState([]);
   const [newItemAdded] = useSearchParams(); 
   const showSuccess = Object.fromEntries([...newItemAdded]);
+  const [searchTerm, setSearchTerm] = useState(""); 
 
 
   const getItems = () => {
@@ -32,7 +35,7 @@ export function Home() {
     navigate(`/${id}`);
   };
 
-  const filteredItems = items.filter((item) => item.available === 1); 
+  const availableItems = items.filter((item) => item.available === 1); 
 
   return (
     <div className="page-container">
@@ -47,7 +50,7 @@ export function Home() {
               Add item
             </Link>
           </div>
-          <div>
+          <div className="hero-img-container">
             <img
               className="hero-img"
               src="assets/hero.png"
@@ -59,32 +62,45 @@ export function Home() {
       <article className="main">
         <div className="container">
           <h2>Recently added</h2>
-          <div>
-            <form>
-              <input placeholder="search for an item"></input>
-            </form>
+          {/* TODO: create search bar component + change functionality to search on button submit instead of filtering onChange (use API request to filter?) */}
+          <div className="search">
+            <div className="searchInputs">
+            <div className="searchIcon"><SearchIcon/></div>
+              <input type="text" placeholder="filter by searching for an item" onChange={(event) => {setSearchTerm(event.target.value)}} />
+            </div>
           </div>
           <div>
             <div className="items-grid">
-              {filteredItems.map((item, index) => {
-                return (
-                  <div
-                    key={index}
-                    className="items-card"
-                    onClick={() => openItemDetail(item.id)}
-                  >
-                    <img
-                      className="items-img"
-                      src={item.image}
-                      alt={item.title}
-                    />
-                    <div className="items-text">
-                      <h3>{item.title}</h3>
-                      <p>{item.location}</p>
+              {
+                availableItems
+                .filter((item) => {
+                  if(!searchTerm) {
+                    return item; 
+                  } else if(item.title.toLowerCase().includes(searchTerm.toLowerCase())) {
+                    return item; 
+                  } 
+              })
+                .map((item, index) => {
+                  return (
+                    <div
+                      key={index}
+                      className="items-card"
+                      onClick={() => openItemDetail(item.id)}
+                    >
+                      <img
+                        className="items-img"
+                        src={item.image}
+                        alt={item.title}
+                      />
+                      <div className="items-text">
+                        <h3>{item.title}</h3>
+                        <p>{item.location}</p>
+                      </div>
                     </div>
-                  </div>
-                );
-              })}
+                  );
+                })
+              }
+            
             </div>
           </div>
         </div>

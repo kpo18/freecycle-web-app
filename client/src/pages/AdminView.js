@@ -42,7 +42,6 @@ export function AdminView() {
     const response = await fetch(`http://localhost:5050/api/${id}`);
     const itemToUpdate = await response.json(); 
 
-    // update to available: true / false
     const takenItem = {
       ...itemToUpdate, available: 0
     };
