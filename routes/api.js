@@ -2,6 +2,8 @@ var express = require("express");
 var router = express.Router();
 const db = require("../model/helper");
 
+// TODO: rename API to be /items/...
+
 /* GET all listings. */
 router.get("/", function (req, res, next) {
   db("SELECT * FROM items ORDER BY id ASC;")
