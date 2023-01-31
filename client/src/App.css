@@ -5,14 +5,14 @@
 }
 
 h1 {
-  font-size: 55px;
-  line-height: 57px;
-  padding-bottom: 30px;
+  font-size: 40px;
+  line-height: 44px;
+  padding-bottom: 20px;
 }
 
 h2 {
-  font-size: 38px;
-  line-height: 40px;
+  font-size: 34px;
+  line-height: 36px;
   font-weight: 800;
   padding-bottom: 30px;
 }
@@ -47,7 +47,7 @@ p {
 
 .header {
   background-color: white;
-  padding: 10px 50px;
+  padding: 10px 15px;
 }
 
 .header-container {
@@ -101,7 +101,7 @@ p {
 .hero {
   background-color: #314f50;
   color: white;
-  padding: 50px;
+  padding: 30px 15px 30px 15px;
 }
 
 .hero-container {
@@ -112,7 +112,7 @@ p {
 }
 
 .hero-img {
-  width: 340px;
+  width: 250px;
   height: auto;  
 }
 
@@ -127,12 +127,12 @@ p {
 
 .main {
   color: #314f50;
-  margin: 50px;
+  padding: 30px 15px 30px 15px;
 }
 
 .items-grid {
   display: grid;
-  grid-template-columns: repeat(1, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 24px;
 }
 
@@ -308,13 +308,36 @@ input:focus {
   font-size: 20px; 
 }
 
-@media screen and (min-width: 640px) {
-  h1 {
-    font-size: 55px;
-    line-height: 57px;
-    margin: 0;
-  }
+.location-container {
+  display: flex; 
+  padding: 15px 0px 10px 0px; 
+}
 
+.location-icon {
+  height: 25px;
+  width: 22px;
+  display: grid; 
+  align-items: center;
+}
+
+.location-icon svg {
+  font-size: 18px;  
+ 
+}
+
+.location-text {
+  align-self: center;
+  height: 25px; 
+}
+
+.location-text p {
+  font-size: 16px; 
+  padding: 0px; 
+}
+
+
+
+@media screen and (min-width: 640px) {
   .container {
     max-width: 640px;
   }
@@ -322,9 +345,33 @@ input:focus {
   .items-grid {
     grid-template-columns: repeat(2, 1fr);
   }
+
+  .header {
+    padding: 10px 50px;
+  }
+
+  .main {
+    padding: 50px;
+  }
+
 }
 
 @media screen and (min-width: 768px) {
+  h2 {
+    font-size: 38px;
+    line-height: 40px;
+    padding-bottom: 30px;
+  }
+
+  .hero {
+    padding: 50px;
+  }
+
+  .hero-img {
+    width: 300px;
+    height: auto;  
+  }
+
   .container {
     max-width: 768px;
   }
@@ -342,7 +389,18 @@ input:focus {
 }
 
 @media screen and (min-width: 1024px) {
+  h1 {
+    font-size: 50px;
+    line-height: 55px;
+    padding-bottom: 30px;
+  }
+
   .container {
     max-width: 1024px;
+  }
+
+  .hero-img {
+    width: 340px;
+    height: auto;  
   }
 }

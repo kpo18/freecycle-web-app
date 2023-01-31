@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import services from "../services";
+import LocationOnIcon from '@material-ui/icons/LocationOn';
 
 export function ItemDetail() {
   const { id } = useParams();
@@ -45,7 +46,10 @@ export function ItemDetail() {
                 <div className="item-detail-text">
                   <div>
                     <h3 className="item-detail-title">{item.title}</h3>
-                    <p>{item.location}</p>
+                    <div className="location-container">
+                          <div className="location-icon"><LocationOnIcon/></div>
+                          <div className="location-text"><p>{item.location}</p></div>
+                    </div>
                     <p className="item-detail-heading">ITEM DESCRIPTION</p>
                     <p>{item.description}</p>
                     <p className="item-detail-heading">CONTACT INFO</p>

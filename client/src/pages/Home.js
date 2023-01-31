@@ -5,12 +5,14 @@ import SearchBar from "../components/SearchBar";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import services from "../services";
 import SearchIcon from "@material-ui/icons/Search";
+import LocationOnIcon from '@material-ui/icons/LocationOn';
 
 export function Home() {
   const [items, setItems] = useState([]);
   const [newItemAdded] = useSearchParams(); 
   const showSuccess = Object.fromEntries([...newItemAdded]);
   const [searchTerm, setSearchTerm] = useState(""); 
+
 
 
   const getItems = () => {
@@ -80,7 +82,7 @@ export function Home() {
                     return item; 
                   } 
               })
-                .map((item, index) => {
+              .map((item, index) => {
                   return (
                     <div
                       key={index}
@@ -94,7 +96,10 @@ export function Home() {
                       />
                       <div className="items-text">
                         <h3>{item.title}</h3>
-                        <p>{item.location}</p>
+                        <div className="location-container">
+                          <div className="location-icon"><LocationOnIcon/></div>
+                          <div className="location-text"><p>{item.location}</p></div>
+                        </div>
                       </div>
                     </div>
                   );
