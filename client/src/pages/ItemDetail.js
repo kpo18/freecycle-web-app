@@ -49,7 +49,7 @@ export function ItemDetail() {
                     <div className="location-container">
                           <div className="location-icon"><LocationOnIcon/></div>
                           <div className="location-text"><p>{item.location}</p></div>
-                    </div>
+                        </div>
                     <p className="item-detail-heading">ITEM DESCRIPTION</p>
                     <p>{item.description}</p>
                     <p className="item-detail-heading">CONTACT INFO</p>

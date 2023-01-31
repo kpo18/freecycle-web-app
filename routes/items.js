@@ -5,12 +5,14 @@ const db = require("../model/helper");
 // TODO: rename API to be /items/...
 
 /* GET all listings. */
-router.get("/", function (req, res, next) {
-  db("SELECT * FROM items ORDER BY id ASC;")
-    .then((results) => {
-      res.send(results.data);
-    })
-    .catch((err) => res.status(500).send(err));
+router.get("/", async (req, res) => {
+  try {
+    const response = await db("SELECT * FROM items ORDER BY id DESC;");
+
+    res.send(response.data)
+  } catch(error) {
+    res.status(500).send(error)
+  }
 });
 
 /* GET one listing. */

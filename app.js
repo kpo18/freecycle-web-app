@@ -5,7 +5,7 @@ var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 var cors = require("cors");
 
-var apiRouter = require("./routes/api");
+var apiRouter = require("./routes/items");
 
 var app = express();
 
@@ -16,7 +16,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use("/api", apiRouter);
+app.use("/items", apiRouter);
 
 // Anything that doesn't match the above, send back index.html
 app.get("*", (req, res) => {

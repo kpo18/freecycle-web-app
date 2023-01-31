@@ -23,15 +23,8 @@ export function AdminView() {
   }, []);
 
   const deleteItem = async (id) => {
-    console.log(id); 
     try {
-      await fetch(`http://localhost:5050/api/${id}`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        //body: JSON.stringify(item)
-      });
+      await services.productService.delete(id); 
       window.location.reload();
     } catch (error) {
       console.log(error);
@@ -39,14 +32,14 @@ export function AdminView() {
   };
 
   const markAsTaken = async (id) => {
-    const response = await fetch(`http://localhost:5050/api/${id}`);
+    const response = await fetch(`http://localhost:5050/items/${id}`);
     const itemToUpdate = await response.json(); 
 
     const takenItem = {
       ...itemToUpdate, available: 0
     };
     
-    const res = await fetch(`http://localhost:5050/api/${id}`, {
+    const res = await fetch(`http://localhost:5050/items/${id}`, {
       method: "PUT", 
       headers: {
         "Content-Type": "application/json"
