@@ -1,14 +1,21 @@
 import React, { useEffect, useState } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import Popup from "../components/Popup";
 import { Link, useSearchParams } from "react-router-dom";
 import services from "../services";
 import CheckCircleRoundedIcon from '@material-ui/icons/CheckCircleRounded';
+import CheckRoundedIcon from '@material-ui/icons/CheckRounded';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 export function AdminView() {
   const [items, setItems] = useState([]);
   const [newItemAdded] = useSearchParams(); 
   const showSuccess = Object.fromEntries([...newItemAdded]);
+  const [popup, setPopup] = useState({
+    show: false, // initial values set to false and null
+    id: null,
+  });
 
   const getItems = () => {
     services.productService
@@ -25,13 +32,34 @@ export function AdminView() {
     getItems();
   }, []);
 
-  const deleteItem = async (id) => {
-    try {
-      await services.productService.delete(id); 
-      window.location.reload();
-    } catch (error) {
-      console.log(error);
+
+  const handleDelete = (id) => {
+    setPopup({
+      show: true,
+      id,
+    });
+  }; 
+
+  const handleDeleteTrue = async () => {
+    if (popup.show && popup.id) {
+      try {
+        await services.productService.delete(popup.id); 
+        setPopup({
+          show: false,
+          id: null,
+        });
+        window.location.reload();
+      } catch (error) {
+        console.log(error);
+      }
     }
+  };
+
+  const handleDeleteFalse = () => {
+    setPopup({
+      show: false,
+      id: null,
+    });
   };
 
   const markAsTaken = async (id) => {
@@ -66,7 +94,7 @@ export function AdminView() {
           </Link>
           <div className="spacer-20"></div>
           { showSuccess.success && (
-            <div className="popup">
+            <div className="success">
             <div className="location-icon"><CheckCircleRoundedIcon/></div>
             <div className="popup-text">Success! Your item has been added</div>
           </div>
@@ -78,7 +106,7 @@ export function AdminView() {
                 return (
                   <div
                     key={index}
-                    className="items-card"
+                    className="admin-items-card"
                   >
                     { item.available === 0 && <div className="item-taken">TAKEN</div> }
                     <img
@@ -88,14 +116,15 @@ export function AdminView() {
                     />
                     <div className="items-text">
                       <h3>{item.title}</h3>
-                      <div>
-                      { item.available === 1 && <button onClick={() => markAsTaken(item.id)}>
-                        Mark as taken
+                      <div className="manage-item">
+                      { item.available === 1 && <button className="btn-taken"  onClick={() => markAsTaken(item.id)}>
+                         Mark as taken
                       </button> } 
+                      <button className="btn-delete" onClick={() => handleDelete(item.id)}>
+                         Delete
+                      </button> 
                       
-                      <button className="delete" onClick={() => deleteItem(item.id)}>
-                        Delete
-                      </button>
+                      
                       </div>
                       
                     </div>
@@ -104,6 +133,12 @@ export function AdminView() {
               })}
             </div>
           </div>
+          {popup.show && (
+            <Popup
+              handleDeleteTrue={handleDeleteTrue}
+              handleDeleteFalse={handleDeleteFalse}
+            />
+          )}
         </div>
       </article>
       <div className="spacer-50"></div>

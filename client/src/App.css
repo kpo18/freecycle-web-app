@@ -335,7 +335,7 @@ input:focus {
   padding: 0px; 
 }
 
-.popup {
+.success {
   padding: 15px; 
   border: 1px solid #3b865b; 
   background-color: #e2f2e9; 
@@ -344,6 +344,143 @@ input:focus {
   color: #3b865b; 
   font-weight: 700; 
   display: flex; 
+}
+
+.modal {
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+.modal-box {
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  border-radius: 4px; 
+  width: 70%; /* Could be more or less, depending on screen size */
+}
+
+.modal-head {
+  display: flex;
+  justify-content: space-between;
+}
+
+.modal-head p {
+  margin: 0; 
+  padding: 5px 0px 10px 0px; 
+  font-weight: 700; 
+}
+
+.modal-cancel {
+  display: inline-block;
+  margin: 10px 5px 0px 0px;
+  background-color: #ececec;
+  color: #314f50;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 50px;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 16px;
+  line-height: 18px;
+  font-family: inherit;
+  font-weight: 600;
+}
+
+.modal-cancel:hover {
+  background-color: #e2e2e2;
+}
+
+.modal-delete {
+  display: inline-block;
+  margin: 10px 0px 0px 5px;
+  background-color: #fa5246;
+  color: white;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 50px;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 16px;
+  line-height: 18px;
+  font-family: inherit;
+  font-weight: 600;
+}
+
+.modal-delete:hover {
+  background-color: #f92e20;
+}
+
+.cancel-icon {
+  cursor: pointer;
+  height: 22px;
+  width: 22px;
+  border-radius: 100px;
+  display: grid; 
+  place-items: center; 
+}
+
+.cancel-icon:hover {
+  background-color: #ececec;
+}
+
+.cancel-icon svg {
+  font-size: 20px; 
+}
+
+.btn-taken {
+  display: inline-block;
+  background-color: #e2f2e9;
+  color: #3b865b;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 50px;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 14px;
+  line-height: 16px;
+  font-family: inherit;
+  font-weight: 600;
+  width: 70%; 
+}
+
+.btn-delete {
+  display: inline-block;
+  background-color: white;
+  color: #fa5246;
+  border: none;
+  padding: 8px 20px;
+  border: 1px solid #fa5246; 
+  border-radius: 50px;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 14px;
+  line-height: 16px;
+  font-family: inherit;
+  font-weight: 600;
+  width: 30%;
+}
+
+
+.manage-item {
+  padding: 20px 0px 20px 0px;
+  display: flex; 
+  justify-content: space-between;
+  gap: 10px; 
+}
+
+.admin-items-card {
+  width: 100%;
+  border-radius: 0px;
+  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 10%), 0 1px 2px 0 rgb(0 0 0 / 6%);
+  background-color: white;
 }
 
 @media screen and (min-width: 640px) {
