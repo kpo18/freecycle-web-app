@@ -12,7 +12,6 @@ export function Home() {
   const [searchTerm, setSearchTerm] = useState(""); 
 
 
-
   const getItems = () => {
     services.productService
       .fetchAll()
@@ -34,6 +33,22 @@ export function Home() {
   const openItemDetail = (id) => {
     navigate(`/${id}`);
   };
+
+  const handleSearch = () => {
+    services.productService
+      .fetchAllSearch(searchTerm)
+      .then((items) => {
+        setItems(items);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    handleSearch();
+  }, [searchTerm]);
+
 
   const availableItems = items.filter((item) => item.available === 1); 
 
@@ -64,22 +79,23 @@ export function Home() {
           {/* TODO: create search bar component + change functionality to search on button submit instead of filtering onChange (use API request to filter?) */}
           <div className="search">
             <div className="searchInputs">
-            <div className="searchIcon"><SearchIcon/></div>
               <input type="text" placeholder="filter by searching for an item" onChange={(event) => {setSearchTerm(event.target.value)}} />
+              <div onClick={handleSearch} className="searchIcon"><SearchIcon/></div>
             </div>
           </div>
           <div>
+            
             <div className="items-grid">
               {
-                availableItems
+                /* availableItems
                 .filter((item) => {
                   if(!searchTerm) {
                     return item; 
                   } else if(item.title.toLowerCase().includes(searchTerm.toLowerCase())) {
                     return item; 
                   } 
-              })
-              .map((item, index) => {
+              })*/
+              availableItems.map((item, index) => {
                   return (
                     <div
                       key={index}

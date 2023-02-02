@@ -5,8 +5,6 @@ import Popup from "../components/Popup";
 import { Link, useSearchParams } from "react-router-dom";
 import services from "../services";
 import CheckCircleRoundedIcon from '@material-ui/icons/CheckCircleRounded';
-import CheckRoundedIcon from '@material-ui/icons/CheckRounded';
-import DeleteIcon from '@material-ui/icons/Delete';
 
 export function AdminView() {
   const [items, setItems] = useState([]);
@@ -117,11 +115,9 @@ export function AdminView() {
                     <div className="items-text">
                       <h3>{item.title}</h3>
                       <div className="manage-item">
-                      { item.available === 1 && <button className="btn-taken"  onClick={() => markAsTaken(item.id)}>
-                         Mark as taken
+                      { item.available === 1 && <button className="btn-taken"  onClick={() => markAsTaken(item.id)}>Mark as taken
                       </button> } 
-                      <button className="btn-delete" onClick={() => handleDelete(item.id)}>
-                         Delete
+                      <button className="btn-delete" onClick={() => handleDelete(item.id)}>Delete
                       </button> 
                       
                       

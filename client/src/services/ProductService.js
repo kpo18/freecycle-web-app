@@ -5,6 +5,16 @@ class ProductService {
     );
   }
 
+  // fetchAllActive() {
+  //   return fetch("http://localhost:5050/items?status=available").then((response) => response.json()
+  //   );
+  // }
+
+  fetchAllSearch(searchTerm) {
+    return fetch(`http://localhost:5050/items?q=${searchTerm}`).then((response) => response.json()
+    );
+  }
+
   fetchOne(id) {
     return fetch(`http://localhost:5050/items/${id}`).then((response) =>
       response.json()

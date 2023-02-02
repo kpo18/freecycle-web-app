@@ -191,19 +191,22 @@ p {
 
 .item-detail-title {
   font-size: 34px;
+  line-height: 34px; 
   padding-bottom: 10px;
 }
 
 .horizontal-line {
   border-top: 1px #eef4f4 solid;
+  margin-top: 10px; 
 }
 
 .item-detail-id {
-  padding: 15px 0px 0px 0px;
+  padding: 10px 0px 0px 0px;
 }
 
 .item-detail-heading {
   font-size: 16px;
+  line-height: 18px; 
   font-weight: 700;
   padding: 30px 0px 0px 0px;
 }
@@ -286,18 +289,23 @@ p {
   border-top-left-radius: 0px; 
   border-bottom-left-radius: 0px; 
   font-size: 16px; 
-  padding: 15px 15px 15px 0px; 
+  padding: 15px 15px 15px 15px; 
   height: 35px; 
-  width: 100%; 
+  width: 300px; 
   font-family: inherit; 
 }
 
 .searchIcon {
   height: 35px; 
   width: 40px; 
+  border-left: 1px solid #e2f2e9; 
   background-color: white; 
   display: grid; 
   place-items: center;
+}
+
+.searchIcon:hover {
+  background-color: #f9f9f9; 
 }
 
 input:focus {
@@ -440,7 +448,7 @@ input:focus {
   background-color: #e2f2e9;
   color: #3b865b;
   border: none;
-  padding: 8px 20px;
+  padding: 8px 15px;
   border-radius: 50px;
   cursor: pointer;
   text-decoration: none;
@@ -448,7 +456,7 @@ input:focus {
   line-height: 16px;
   font-family: inherit;
   font-weight: 600;
-  width: 70%; 
+  width: 75%; 
 }
 
 .btn-delete {
@@ -456,7 +464,7 @@ input:focus {
   background-color: white;
   color: #fa5246;
   border: none;
-  padding: 8px 20px;
+  padding: 8px 15px;
   border: 1px solid #fa5246; 
   border-radius: 50px;
   cursor: pointer;
@@ -465,7 +473,7 @@ input:focus {
   line-height: 16px;
   font-family: inherit;
   font-weight: 600;
-  width: 30%;
+  width: 25%;
 }
 
 
@@ -528,10 +536,6 @@ input:focus {
   .items-grid {
     grid-template-columns: repeat(3, 1fr);
   }
-  .item-detail-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-  }
 }
 
 @media screen and (min-width: 1024px) {
@@ -549,4 +553,16 @@ input:focus {
     width: 340px;
     height: auto;  
   }
+
+  .item-detail-grid {
+    display: grid;
+    grid-template-columns: 2fr 2fr;
+  }
+
+  .item-detail-img {
+    object-fit: cover;
+    height: 100%;
+    aspect-ratio: 1;
+  }
+
 }

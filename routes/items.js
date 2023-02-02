@@ -6,15 +6,31 @@ const db = require("../model/helper");
 
 /* GET all listings. */
 router.get("/", async (req, res) => {
-  
-  try {
-    const response = await db("SELECT * FROM items ORDER BY id DESC;");
+  const { q } = req.query; 
+  if (q) {
+    try {
+      const response = await db(`SELECT * FROM items WHERE title LIKE '%${q}%';`);
+      const items = response.data; 
 
-    res.send(response.data)
-  } catch(error) {
-    res.status(500).send(error)
+      if (!items) {
+        res.status(404).send("No matches found"); 
+        return; 
+      }
+      res.send(response.data); 
+    } catch(error) {
+      res.status(500).send(error);
+    }
+  } else {
+    try {
+      const response = await db("SELECT * FROM items ORDER BY id DESC;");
+      res.send(response.data)
+    } catch(error) {
+      res.status(500).send(error)
+    }
   }
 });
+
+
 
 /* GET one listing. */
 router.get("/:id", async (req, res) => {
