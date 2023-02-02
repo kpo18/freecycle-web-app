@@ -2,15 +2,13 @@ import React, { useEffect, useState } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import SearchBar from "../components/SearchBar";
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import services from "../services";
 import SearchIcon from "@material-ui/icons/Search";
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 
 export function Home() {
   const [items, setItems] = useState([]);
-  const [newItemAdded] = useSearchParams(); 
-  const showSuccess = Object.fromEntries([...newItemAdded]);
   const [searchTerm, setSearchTerm] = useState(""); 
 
 
@@ -42,7 +40,6 @@ export function Home() {
   return (
     <div className="page-container">
       <Header />
-      { showSuccess.success && (<div>Success! Your item has been added</div>) }
       <section className="hero">
         <div className="container hero-container">
           <div className="hero-text">

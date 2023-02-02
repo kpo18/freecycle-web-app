@@ -6,6 +6,7 @@ const db = require("../model/helper");
 
 /* GET all listings. */
 router.get("/", async (req, res) => {
+  
   try {
     const response = await db("SELECT * FROM items ORDER BY id DESC;");
 

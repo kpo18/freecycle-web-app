@@ -335,7 +335,16 @@ input:focus {
   padding: 0px; 
 }
 
-
+.popup {
+  padding: 15px; 
+  border: 1px solid #3b865b; 
+  background-color: #e2f2e9; 
+  border-radius: 5px; 
+  margin-bottom: 20px; 
+  color: #3b865b; 
+  font-weight: 700; 
+  display: flex; 
+}
 
 @media screen and (min-width: 640px) {
   .container {

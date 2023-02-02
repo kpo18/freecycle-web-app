@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import services from "../services";
+import CheckCircleRoundedIcon from '@material-ui/icons/CheckCircleRounded';
 
 export function AdminView() {
   const [items, setItems] = useState([]);
+  const [newItemAdded] = useSearchParams(); 
+  const showSuccess = Object.fromEntries([...newItemAdded]);
 
   const getItems = () => {
     services.productService
@@ -62,6 +65,12 @@ export function AdminView() {
             &#171; BACK
           </Link>
           <div className="spacer-20"></div>
+          { showSuccess.success && (
+            <div className="popup">
+            <div className="location-icon"><CheckCircleRoundedIcon/></div>
+            <div className="popup-text">Success! Your item has been added</div>
+          </div>
+          ) }
           <h2>You're an admin now</h2>
           <div>
             <div className="items-grid">

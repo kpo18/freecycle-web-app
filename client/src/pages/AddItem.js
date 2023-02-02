@@ -36,7 +36,7 @@ export function AddItem() {
 
     try {
       await services.productService.create(item);
-      navigate("/?success=1"); //navigates back to HP when item was added
+      navigate("/admin?success=1"); //navigates back to Admin when item was added
     } catch (error) {
       setError("Oops! Something went wrong. Try again later");
     } finally {
