@@ -14,7 +14,7 @@ export function Home() {
 
   const getItems = () => {
     services.productService
-      .fetchAll()
+      .fetchAllActive()
       .then((items) => {
         setItems(items);
       })
@@ -50,7 +50,7 @@ export function Home() {
   }, [searchTerm]);
 
 
-  const availableItems = items.filter((item) => item.available === 1); 
+  //const availableItems = items.filter((item) => item.available === 1); 
 
   return (
     <div className="page-container">
@@ -79,8 +79,8 @@ export function Home() {
           {/* TODO: create search bar component + change functionality to search on button submit instead of filtering onChange (use API request to filter?) */}
           <div className="search">
             <div className="searchInputs">
+              <div className="searchIcon"><SearchIcon/></div>
               <input type="text" placeholder="filter by searching for an item" onChange={(event) => {setSearchTerm(event.target.value)}} />
-              <div onClick={handleSearch} className="searchIcon"><SearchIcon/></div>
             </div>
           </div>
           <div>
@@ -95,7 +95,7 @@ export function Home() {
                     return item; 
                   } 
               })*/
-              availableItems.map((item, index) => {
+              items.map((item, index) => {
                   return (
                     <div
                       key={index}

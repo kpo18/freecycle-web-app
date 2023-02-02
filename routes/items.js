@@ -6,10 +6,20 @@ const db = require("../model/helper");
 
 /* GET all listings. */
 router.get("/", async (req, res) => {
+    try {
+      const response = await db("SELECT * FROM items ORDER BY id DESC;");
+      res.send(response.data)
+    } catch(error) {
+      res.status(500).send(error)
+    }
+});
+
+/* GET all available listings. */
+router.get("/status=available", async (req, res) => {
   const { q } = req.query; 
   if (q) {
     try {
-      const response = await db(`SELECT * FROM items WHERE title LIKE '%${q}%';`);
+      const response = await db(`SELECT * FROM items WHERE available = 1 AND title LIKE '%${q}%';`);
       const items = response.data; 
 
       if (!items) {
@@ -22,14 +32,19 @@ router.get("/", async (req, res) => {
     }
   } else {
     try {
-      const response = await db("SELECT * FROM items ORDER BY id DESC;");
-      res.send(response.data)
+      const response = await db("SELECT * FROM items WHERE available = 1;"); 
+      const items = response.data; 
+  
+      if (!items) {
+        res.status(404).send("No available items"); 
+        return;
+      }
+      res.send(response.data);
     } catch(error) {
-      res.status(500).send(error)
+      res.status(500).send(error);
     }
   }
-});
-
+}); 
 
 
 /* GET one listing. */

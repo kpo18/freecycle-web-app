@@ -142,6 +142,7 @@ p {
   box-shadow: 0 1px 3px 0 rgb(0 0 0 / 10%), 0 1px 2px 0 rgb(0 0 0 / 6%);
   background-color: white;
   cursor: pointer;
+  position: relative; 
 }
 
 .items-img {
@@ -272,7 +273,7 @@ p {
     background-color: #3b865b; 
     color: white; 
     text-align: center; 
-    padding: 8px; 
+    padding: 8px 16px 8px 16px;   
     font-size: 14px; 
     font-weight: 400; 
 }
@@ -289,7 +290,7 @@ p {
   border-top-left-radius: 0px; 
   border-bottom-left-radius: 0px; 
   font-size: 16px; 
-  padding: 15px 15px 15px 15px; 
+  padding: 15px 15px 15px 0px; 
   height: 35px; 
   width: 300px; 
   font-family: inherit; 
@@ -297,15 +298,10 @@ p {
 
 .searchIcon {
   height: 35px; 
-  width: 40px; 
-  border-left: 1px solid #e2f2e9; 
+  width: 35px; 
   background-color: white; 
   display: grid; 
   place-items: center;
-}
-
-.searchIcon:hover {
-  background-color: #f9f9f9; 
 }
 
 input:focus {
@@ -445,42 +441,43 @@ input:focus {
 
 .btn-taken {
   display: inline-block;
-  background-color: #e2f2e9;
-  color: #3b865b;
+  background-color: #314f50;
+  color: white;
   border: none;
   padding: 8px 15px;
   border-radius: 50px;
   cursor: pointer;
   text-decoration: none;
   font-size: 14px;
-  line-height: 16px;
+  line-height: 18px;
   font-family: inherit;
-  font-weight: 600;
-  width: 75%; 
+  font-weight: 700;
+  width: 100%; 
 }
 
 .btn-delete {
   display: inline-block;
   background-color: white;
   color: #fa5246;
-  border: none;
+  border: 1px solid #fa5246;
   padding: 8px 15px;
-  border: 1px solid #fa5246; 
   border-radius: 50px;
   cursor: pointer;
   text-decoration: none;
   font-size: 14px;
-  line-height: 16px;
+  line-height: 18px;
   font-family: inherit;
-  font-weight: 600;
-  width: 25%;
+  font-weight: 700;
 }
 
 
 .manage-item {
+  border-top: 1px solid #f2f7f5; 
+  margin-top: 20px; 
   padding: 20px 0px 20px 0px;
   display: flex; 
   justify-content: space-between;
+  flex-direction: column;
   gap: 10px; 
 }
 
@@ -529,13 +526,17 @@ input:focus {
   .container {
     max-width: 768px;
   }
+
   .hero-container {
     flex-direction: row;
     text-align: left;
   }
+
   .items-grid {
     grid-template-columns: repeat(3, 1fr);
   }
+
+  
 }
 
 @media screen and (min-width: 1024px) {

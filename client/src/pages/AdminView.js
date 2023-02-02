@@ -114,10 +114,11 @@ export function AdminView() {
                     />
                     <div className="items-text">
                       <h3>{item.title}</h3>
+                      
                       <div className="manage-item">
                       { item.available === 1 && <button className="btn-taken"  onClick={() => markAsTaken(item.id)}>Mark as taken
                       </button> } 
-                      <button className="btn-delete" onClick={() => handleDelete(item.id)}>Delete
+                      <button className="btn-delete" onClick={() => handleDelete(item.id)}>Delete item
                       </button> 
                       
                       
