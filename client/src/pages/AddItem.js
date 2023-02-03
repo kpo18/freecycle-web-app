@@ -117,7 +117,7 @@ export function AddItem() {
                   placeholder="enter a phone number or email address"
                   value={item.contact}
                   name="contact"
-                  maxlength="50"
+                  maxlength="30"
                   onChange={(e) => handleChange(e)}
                 />
               </div>

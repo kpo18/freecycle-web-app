@@ -138,7 +138,6 @@ p {
 
 .items-card {
   width: 100%;
-  border-radius: 0px;
   box-shadow: 0 1px 3px 0 rgb(0 0 0 / 10%), 0 1px 2px 0 rgb(0 0 0 / 6%);
   background-color: white;
   cursor: pointer;
@@ -168,6 +167,7 @@ p {
 
 .item-detail-card {
   background-color: white;
+  border-radius: 3px; 
 }
 
 .item-detail-grid {
@@ -292,7 +292,7 @@ p {
   font-size: 16px; 
   padding: 15px 15px 15px 0px; 
   height: 35px; 
-  width: 300px; 
+  width: 100%; 
   font-family: inherit; 
 }
 
@@ -536,7 +536,6 @@ input:focus {
     grid-template-columns: repeat(3, 1fr);
   }
 
-  
 }
 
 @media screen and (min-width: 1024px) {

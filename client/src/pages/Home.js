@@ -46,7 +46,7 @@ export function Home() {
   };
 
   useEffect(() => {
-    handleSearch();
+    if(searchTerm.length === 0 || searchTerm.length >2) handleSearch();
   }, [searchTerm]);
 
 
@@ -59,7 +59,7 @@ export function Home() {
         <div className="container hero-container">
           <div className="hero-text">
             <h1>Get rid of stuff you no longer need</h1>
-            <h4>Find a new home for unloved items.</h4>
+            <h4>A place to give and get stuff for free in London.</h4>
             <Link to="/new" className="btn">
               Add item
             </Link>
@@ -76,7 +76,6 @@ export function Home() {
       <article className="main">
         <div className="container">
           <h2>Recently added</h2>
-          {/* TODO: create search bar component + change functionality to search on button submit instead of filtering onChange (use API request to filter?) */}
           <div className="search">
             <div className="searchInputs">
               <div className="searchIcon"><SearchIcon/></div>
@@ -84,7 +83,7 @@ export function Home() {
             </div>
           </div>
           <div>
-            
+          
             <div className="items-grid">
               {
                 /* availableItems

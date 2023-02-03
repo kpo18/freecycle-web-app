@@ -7,7 +7,7 @@ const db = require("../model/helper");
 /* GET all listings. */
 router.get("/", async (req, res) => {
     try {
-      const response = await db("SELECT * FROM items ORDER BY id DESC;");
+      const response = await db("SELECT * FROM items;");
       res.send(response.data)
     } catch(error) {
       res.status(500).send(error)
