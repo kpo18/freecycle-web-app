@@ -66,7 +66,7 @@ export function AddItem() {
                   placeholder="e.g. Old Sneakers"
                   value={item.title}
                   name="title"
-                  maxlength="50"
+                  maxLength="50"
                   onChange={(e) => handleChange(e)}
                 />
               </div>
@@ -79,7 +79,7 @@ export function AddItem() {
                   placeholder="e.g. size 42, only worn a few times."
                   value={item.description}
                   name="description"
-                  maxlength="500"
+                  maxLength="500"
                   onChange={(e) => handleChange(e)}
                 />
               </div>
@@ -104,7 +104,7 @@ export function AddItem() {
                   placeholder="add a London postcode or tube station"
                   value={item.location}
                   name="location"
-                  maxlength="30"
+                  maxLength="30"
                   onChange={(e) => handleChange(e)}
                 />
               </div>
@@ -117,7 +117,7 @@ export function AddItem() {
                   placeholder="enter a phone number or email address"
                   value={item.contact}
                   name="contact"
-                  maxlength="30"
+                  maxLength="30"
                   onChange={(e) => handleChange(e)}
                 />
               </div>

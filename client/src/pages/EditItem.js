@@ -14,9 +14,16 @@ export function EditItem() {
   const [changed, setChanged] = useState(false); 
 
   useEffect(() => {
-      console.log("item", item); 
-      console.log("temp item", tempItem);
-      console.log(changed);
+      if (!item) return; 
+      if (!item) return; 
+
+      let equal = true; 
+        if (item.title !== tempItem.title) equal = false; 
+        if (item.description !== tempItem.description) equal = false;
+        if (item.image !== tempItem.image) equal = false;
+        if (item.location !== tempItem.location) equal = false;
+        if (item.contact !== tempItem.contact) equal = false;
+        if (equal) setChanged(false);
   })
 
   useEffect(() => {
@@ -28,7 +35,7 @@ export function EditItem() {
             setTempItem(item);
           })
           .catch((error) => {
-            console.log(error);
+            setError(error);
           });
       };
       getItem();
@@ -45,6 +52,7 @@ export function EditItem() {
         setChanged(false); 
         navigate("/admin?updated=1");
     } 
+
 
 
   return (
@@ -68,13 +76,14 @@ export function EditItem() {
                   type="text"
                   value={tempItem.title}
                   name="title"
-                  maxlength="50"
+                  maxLength="50"
                   onChange={(e) => {
                       setChanged(true); 
                       setTempItem({
                         ...tempItem, 
                         title: e.target.value});
                       }}
+                      
                 />
               </div>
               <div>
@@ -85,7 +94,7 @@ export function EditItem() {
                   type="text"
                   value={tempItem.description}
                   name="description"
-                  maxlength="500"
+                  maxLength="500"
                   onChange={(e) => {
                     setChanged(true); 
                     setTempItem({
@@ -118,7 +127,7 @@ export function EditItem() {
                   type="text"
                   value={tempItem.location}
                   name="location"
-                  maxlength="30"
+                  maxLength="30"
                   onChange={(e) => {
                     setChanged(true); 
                     setTempItem({
@@ -135,7 +144,7 @@ export function EditItem() {
                   type="text"
                   value={tempItem.contact}
                   name="contact"
-                  maxlength="30"
+                  maxLength="30"
                   onChange={(e) => {
                     setChanged(true);
                     setTempItem({
@@ -159,7 +168,9 @@ export function EditItem() {
                   Save changes
                 </button>
                 
-              </div> : null }
+              </div> : <button className="modal-cancel">
+                  No changes to save
+                </button> }
           </div>
         </div>
       </article>

@@ -7,7 +7,7 @@ const db = require("../model/helper");
 /* GET all listings. */
 router.get("/", async (req, res) => {
     try {
-      const response = await db("SELECT * FROM items;");
+      const response = await db("SELECT * FROM items ORDER BY id DESC;");
       res.send(response.data)
     } catch(error) {
       res.status(500).send(error)
@@ -19,7 +19,7 @@ router.get("/status=available", async (req, res) => {
   const { q } = req.query; 
   if (q) {
     try {
-      const response = await db(`SELECT * FROM items WHERE available = 1 AND title LIKE '%${q}%';`);
+      const response = await db(`SELECT * FROM items WHERE available = 1 AND title LIKE '%${q}%' ORDER BY id DESC;`);
       const items = response.data; 
 
       if (!items) {
@@ -32,7 +32,7 @@ router.get("/status=available", async (req, res) => {
     }
   } else {
     try {
-      const response = await db("SELECT * FROM items WHERE available = 1;"); 
+      const response = await db("SELECT * FROM items WHERE available = 1 ORDER BY id DESC;"); 
       const items = response.data; 
   
       if (!items) {
@@ -107,7 +107,7 @@ router.put("/:id", async (req, res) => {
       `UPDATE items SET title = '${title}', description = '${description}', image = '${image}', location = '${location}', contact = '${contact}', available = '${available}' WHERE id = ${id}`
     );
 
-    const items = await db(`SELECT * FROM items`);
+    const items = await db(`SELECT * FROM items ORDER BY id DESC`);
 
     res.status(200).send(items.data);
   } catch (error) {
