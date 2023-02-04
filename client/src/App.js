@@ -5,6 +5,7 @@ import { AddItem } from "./pages/AddItem";
 import { Home } from "./pages/Home";
 import { ItemDetail } from "./pages/ItemDetail";
 import { AdminView } from "./pages/AdminView";
+import { EditItem } from "./pages/EditItem";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <Route path="/new" element={<AddItem />} />
       <Route path="/:id" element={<ItemDetail />} />
       <Route path="/admin" element={<AdminView />} />
+      <Route path="/:id/edit" element={<EditItem />} /> 
     </Routes>
   );
 }

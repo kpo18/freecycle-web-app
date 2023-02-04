@@ -98,6 +98,21 @@ p {
   background-color: #f2f7f5;
 }
 
+.edit-item {
+  display: inline-block;
+  background-color: #f2f7f5;
+  color: #314f50;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 50px;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 14px;
+  line-height: 18px; 
+  font-family: inherit;
+  font-weight: 700;
+}
+
 .hero {
   background-color: #314f50;
   color: white;
@@ -452,7 +467,6 @@ input:focus {
   line-height: 18px;
   font-family: inherit;
   font-weight: 700;
-  width: 100%; 
 }
 
 .btn-delete {

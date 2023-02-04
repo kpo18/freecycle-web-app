@@ -2,14 +2,16 @@ import React, { useEffect, useState } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Popup from "../components/Popup";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useSearchParams, useNavigate } from "react-router-dom";
 import services from "../services";
 import CheckCircleRoundedIcon from '@material-ui/icons/CheckCircleRounded';
 
 export function AdminView() {
   const [items, setItems] = useState([]);
   const [newItemAdded] = useSearchParams(); 
+  const [itemUpdated] = useSearchParams(); 
   const showSuccess = Object.fromEntries([...newItemAdded]);
+  const showUpdated = Object.fromEntries([...itemUpdated]);
   const [popup, setPopup] = useState({
     show: false, // initial values set to false and null
     id: null,
@@ -79,6 +81,10 @@ export function AdminView() {
     setItems(data); 
   }
 
+  const navigate = useNavigate();
+  const openEditItem = (id) => {
+    navigate(`/${id}/edit`);
+  };
 
 
   return (
@@ -95,6 +101,12 @@ export function AdminView() {
             <div className="success">
             <div className="location-icon"><CheckCircleRoundedIcon/></div>
             <div className="popup-text">Success! Your item has been added</div>
+          </div>
+          ) }
+          { showUpdated.updated && (
+            <div className="success">
+            <div className="location-icon"><CheckCircleRoundedIcon/></div>
+            <div className="popup-text">Success! Your item has been updated</div>
           </div>
           ) }
           <h2>You're an admin now</h2>
@@ -116,8 +128,12 @@ export function AdminView() {
                       <h3>{item.title}</h3>
                       
                       <div className="manage-item">
-                      { item.available === 1 && <button className="btn-taken"  onClick={() => markAsTaken(item.id)}>Mark as taken
-                      </button> } 
+                      { item.available === 1 && <><button className="btn-taken"  onClick={() => markAsTaken(item.id)}>Mark as taken
+                      </button> 
+                      <button className="edit-item" onClick={() => openEditItem(item.id)}>Edit item
+                      </button> 
+                      </>
+                      } 
                       <button className="btn-delete" onClick={() => handleDelete(item.id)}>Delete item
                       </button> 
                       
