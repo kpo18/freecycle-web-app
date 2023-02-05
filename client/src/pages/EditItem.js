@@ -7,7 +7,7 @@ import services from "../services";
 export function EditItem() {
   const { id } = useParams();
   let navigate = useNavigate();
-  const [error, setError] = useState("");
+  const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const [item, setItem] = useState(null);
   const [tempItem, setTempItem] = useState(); 
@@ -27,32 +27,36 @@ export function EditItem() {
   })
 
   useEffect(() => {
-      const getItem = () => {
-        services.productService
-          .fetchOne(id)
-          .then((item) => {
-            setItem(item);
-            setTempItem(item);
-          })
-          .catch((error) => {
-            setError(error);
-          });
+      const getItem = async () => {
+        try {
+          const item = await services.productService
+          .fetchOne(id);
+          setItem(item);
+          setTempItem(item);
+        } catch(error) {
+          setError(error);
+        } 
       };
       getItem();
     }, [id]);
 
     const updateItem = async (id) => {
-        await fetch(`http://localhost:5050/items/${id}`, {
+        try {
+            await fetch(`http://localhost:5050/items/${id}`, {
             method: "PUT", 
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(tempItem)
-        });
-        setChanged(false); 
-        navigate("/admin?updated=1");
+            });
+            setChanged(false); 
+            navigate("/admin?updated=1");
+        } catch(error) {
+          setError(error);
+        }
     } 
 
+  
 
 
   return (
@@ -67,6 +71,7 @@ export function EditItem() {
           </Link>
           <div className="spacer-20"></div>
           <h2>Edit item</h2>
+          
           <div className="form-control">
               <div>
                 <label>TITLE</label>

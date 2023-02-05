@@ -15,7 +15,7 @@ router.get("/", async (req, res) => {
 });
 
 /* GET all available listings. */
-router.get("/status=available", async (req, res) => {
+router.get("/filter", async (req, res) => {
   const { q } = req.query; 
   if (q) {
     try {
@@ -107,7 +107,7 @@ router.put("/:id", async (req, res) => {
       `UPDATE items SET title = '${title}', description = '${description}', image = '${image}', location = '${location}', contact = '${contact}', available = '${available}' WHERE id = ${id}`
     );
 
-    const items = await db(`SELECT * FROM items ORDER BY id DESC`);
+    const items = await db(`SELECT * FROM items `);
 
     res.status(200).send(items.data);
   } catch (error) {

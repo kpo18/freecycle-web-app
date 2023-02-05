@@ -40,7 +40,7 @@ p {
 }
 
 .logo {
-  width: 160px;
+  width: 120px;
   height: auto;
   cursor: pointer;
 }
@@ -67,11 +67,12 @@ p {
   background-color: #f48ca7;
   color: #fff;
   border: none;
-  padding: 8px 20px;
+  padding: 8px 15px;
   border-radius: 50px;
   cursor: pointer;
   text-decoration: none;
-  font-size: 15px;
+  font-size: 14px;
+  line-height: 16px; 
   font-family: inherit;
   font-weight: 600;
 }
@@ -85,11 +86,12 @@ p {
   background-color: white;
   color: #314f50;
   border: none;
-  padding: 8px 20px;
+  padding: 8px 10px;
   border-radius: 50px;
   cursor: pointer;
   text-decoration: none;
-  font-size: 15px;
+  font-size: 14px;
+  line-height: 16px; 
   font-family: inherit;
   font-weight: 700;
 }
@@ -147,7 +149,7 @@ p {
 
 .items-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(1, 1fr);
   gap: 24px;
 }
 
@@ -167,7 +169,7 @@ p {
 
 .items-text {
   color: #314f50;
-  padding: 5px 20px;
+  padding: 5px 20px 20px 20px;
 }
 
 .footer {
@@ -548,6 +550,10 @@ input:focus {
 
   .items-grid {
     grid-template-columns: repeat(3, 1fr);
+  }
+
+  .logo {
+    width: 160px;
   }
 
 }

@@ -10,6 +10,8 @@ export function AdminView() {
   const [items, setItems] = useState([]);
   const [newItemAdded] = useSearchParams(); 
   const [itemUpdated] = useSearchParams(); 
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
   const showSuccess = Object.fromEntries([...newItemAdded]);
   const showUpdated = Object.fromEntries([...itemUpdated]);
   const [popup, setPopup] = useState({
@@ -17,15 +19,17 @@ export function AdminView() {
     id: null,
   });
 
-  const getItems = () => {
-    services.productService
-      .fetchAll()
-      .then((items) => {
-        setItems(items);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+  const getItems = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const items = await services.productService.fetchAll();
+      setItems(items);
+    } catch(error) {
+      setError("Oops, something went wrong!");
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -86,6 +90,13 @@ export function AdminView() {
     navigate(`/${id}/edit`);
   };
 
+  let state = <></>
+  if (error) {
+    state = <>{error}</>
+  } else if (loading) {
+    state = <>Loading...</>;
+  }
+
 
   return (
     <div className="page-container">
@@ -110,6 +121,7 @@ export function AdminView() {
           </div>
           ) }
           <h2>You're an admin now</h2>
+          {state}
           <div>
             <div className="items-grid">
               {items.map((item, index) => {
@@ -146,6 +158,8 @@ export function AdminView() {
               })}
             </div>
           </div>
+
+          
           {popup.show && (
             <Popup
               handleDeleteTrue={handleDeleteTrue}

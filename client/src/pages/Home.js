@@ -10,17 +10,21 @@ import LocationOnIcon from '@material-ui/icons/LocationOn';
 export function Home() {
   const [items, setItems] = useState([]);
   const [searchTerm, setSearchTerm] = useState(""); 
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
 
 
-  const getItems = () => {
-    services.productService
-      .fetchAllActive()
-      .then((items) => {
-        setItems(items);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+  const getItems = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const items = await services.productService.fetchAllActive();
+      setItems(items);
+    } catch(error) {
+      setError("Oops, something went wrong!");
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -34,23 +38,25 @@ export function Home() {
     navigate(`/${id}`);
   };
 
-  const handleSearch = () => {
-    services.productService
-      .fetchAllSearch(searchTerm)
-      .then((items) => {
-        setItems(items);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+  const handleSearch = async () => {
+    const items = await services.productService.fetchAllSearch(searchTerm);
+    setItems(items);
   };
 
   useEffect(() => {
-    if(searchTerm.length === 0 || searchTerm.length >2) handleSearch();
+    //if(searchTerm.length === 0 || searchTerm.length >2)
+     handleSearch();
   }, [searchTerm]);
 
 
   //const availableItems = items.filter((item) => item.available === 1); 
+
+  let state = <></>
+  if (error) {
+    state = <>{error}</>
+  } else if (loading) {
+    state = <>Loading...</>;
+  }
 
   return (
     <div className="page-container">
@@ -82,43 +88,43 @@ export function Home() {
               <input type="text" placeholder="filter by searching for an item" onChange={(event) => {setSearchTerm(event.target.value)}} />
             </div>
           </div>
+          {state}
           <div>
-          
-            <div className="items-grid">
-              {
-                /* availableItems
-                .filter((item) => {
-                  if(!searchTerm) {
-                    return item; 
-                  } else if(item.title.toLowerCase().includes(searchTerm.toLowerCase())) {
-                    return item; 
-                  } 
-              })*/
-              items.map((item, index) => {
-                  return (
-                    <div
-                      key={index}
-                      className="items-card"
-                      onClick={() => openItemDetail(item.id)}
-                    >
-                      <img
-                        className="items-img"
-                        src={item.image}
-                        alt={item.title}
-                      />
-                      <div className="items-text">
-                        <h3>{item.title}</h3>
-                        <div className="location-container">
-                          <div className="location-icon"><LocationOnIcon/></div>
-                          <div className="location-text"><p>{item.location}</p></div>
-                        </div>
-                      </div>
+          <div className="items-grid">
+          {
+            /* availableItems
+            .filter((item) => {
+              if(!searchTerm) {
+                return item; 
+              } else if(item.title.toLowerCase().includes(searchTerm.toLowerCase())) {
+                return item; 
+              } 
+          })*/
+          items.map((item, index) => {
+              return (
+                <div
+                  key={index}
+                  className="items-card"
+                  onClick={() => openItemDetail(item.id)}
+                >
+                  <img
+                    className="items-img"
+                    src={item.image}
+                    alt={item.title}
+                  />
+                  <div className="items-text">
+                    <h3>{item.title}</h3>
+                    <div className="location-container">
+                      <div className="location-icon"><LocationOnIcon/></div>
+                      <div className="location-text"><p>{item.location}</p></div>
                     </div>
-                  );
-                })
-              }
+                  </div>
+                </div>
+              );
+            })
+          }
+        </div> 
             
-            </div>
           </div>
         </div>
       </article>

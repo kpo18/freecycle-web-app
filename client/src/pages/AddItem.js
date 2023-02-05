@@ -44,6 +44,13 @@ export function AddItem() {
     }
   };
 
+  let state = <></>
+  if (error) {
+    state = <>{error}</>
+  } else if (loading) {
+    state = <>Loading...</>;
+  }
+
   return (
     <div className="page-container">
       <Header />
@@ -55,6 +62,7 @@ export function AddItem() {
           </Link>
           <div className="spacer-20"></div>
           <h2>Add new item</h2>
+          {state}
           <div className="form-control">
             <form onSubmit={(e) => handleSubmit(e)}>
               <div>

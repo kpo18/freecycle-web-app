@@ -1,24 +1,22 @@
 class ProductService {
-  fetchAll() {
-    return fetch("http://localhost:5050/items").then((response) =>
-      response.json()
-    );
+  async fetchAll() {
+    const response = await fetch("http://localhost:5050/items");
+    return response.json();
   }
 
-  fetchAllActive() {
-    return fetch("http://localhost:5050/items/status=available").then((response) => response.json()
-    );
+  async fetchAllActive() {
+    const response = await fetch("http://localhost:5050/items/filter"); 
+    return response.json();
   }
 
-  fetchAllSearch(searchTerm) {
-    return fetch(`http://localhost:5050/items/status=available?q=${searchTerm}`).then((response) => response.json()
-    );
+  async fetchAllSearch(searchTerm) {
+    const response = await fetch(`http://localhost:5050/items/filter?q=${searchTerm}`); 
+    return response.json();
   }
 
-  fetchOne(id) {
-    return fetch(`http://localhost:5050/items/${id}`).then((response) =>
-      response.json()
-    );
+  async fetchOne(id) {
+    const response = await fetch(`http://localhost:5050/items/${id}`); 
+    return response.json();
   }
 
   create(item) {
