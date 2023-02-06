@@ -14,8 +14,6 @@
   </p>
 </div>
 
-
-
 <!-- TABLE OF CONTENTS -->
 <details>
   <summary>Table of Contents</summary>
@@ -38,7 +36,6 @@
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ol>
 </details>
 
@@ -49,8 +46,6 @@
 
 ![SecondLife Web App Screen Shot](/public/images/SecondLife_Home.png)
 
-Here's a blank template to get started: To avoid retyping too much info. Do a search and replace with your text editor for the following: `github_username`, `repo_name`, `twitter_handle`, `linkedin_username`, `email_client`, `email`, `project_title`, `project_description`
-
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
@@ -60,40 +55,36 @@ Here's a blank template to get started: To avoid retyping too much info. Do a se
 * React
 * Express
 * Mysql 
+* Vanilla CSS
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
 
 <!-- GETTING STARTED -->
-## Getting Started
-
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
+## Getting started
 
 ### Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
-* npm
-  ```sh
-  npm install npm@latest -g
-  ```
+- Run `npm install` in project directory to install server-related dependencies such as `express`.
+- `cd client` and run `npm install` to install client dependencies (React).
+- install nodemon, mysql, cors, material ui, react router dom
 
 ### Installation
 
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
-   ```sh
-   git clone https://github.com/kpo18/freecycle-web-app.git
-   ```
-3. Install NPM packages
-   ```sh
-   npm install
-   ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = 'ENTER YOUR API';
-   ```
+- Access the MySQL interface in your terminal by running `mysql -u root -p`
+- Create a new database called items: `create database items`
+- Add a `.env` file to the project folder of this repository containing the MySQL authentication information for MySQL user. For example:
+
+```bash
+  DB_HOST=localhost
+  DB_USER=root
+  DB_NAME=items
+  DB_PASS=YOURPASSWORD
+```
+
+- Run `npm run migrate` in the project folder of this repository, in a new terminal window. This will create a table called 'items' in your database.
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -102,9 +93,12 @@ This is an example of how to list things you need to use the software and how to
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+![Userflow mockup](/public/images/MVP_Userflow_Mockup.svg)
 
-_For more examples, please refer to the [Documentation](https://example.com)_
+[Database schema](https://drawsql.app/teams/katja-pollmanns-team/diagrams/mvp-project)
+
+![Database schema](/public/images/MVP_database_schema.png)
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -115,10 +109,8 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 
 - [ ] Add User Login
 - [ ] Add categories
-- [ ] Add "edit item" functionality
-- [ ] Add image upload functionality
-- [ ] Add multiple images
-
+- [ ] Add image upload / multiple images functionality
+- [ ] Add pagination
 
 See the [open issues](https://github.com/kpo18/freecycle-web-app/issues) for a full list of proposed features (and known issues).
 
@@ -163,23 +155,3 @@ Project Link: [https://github.com/kpo18/freecycle-web-app](https://github.com/kp
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
-
-<!-- ACKNOWLEDGMENTS -->
-## Acknowledgments
-
-* []()
-* []()
-* []()
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
-<!-- MARKDOWN LINKS & IMAGES -->
-<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: www.linkedin.com/in/katja-pollmann-613989a7
-[product-screenshot]: images/screenshot.png
-[React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
-[React-url]: https://reactjs.org/
