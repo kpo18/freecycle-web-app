@@ -2,10 +2,6 @@
 
 <!-- PROJECT LOGO -->
 <br />
-<div align="center">
-  <a href="https://github.com/kpo18/freecycle-web-app">
-    <img src="client/public/assets/logo.svg" alt="Logo" width="150" height="auto">
-  </a>
 
 <h3 align="center">Freecycle ("SecondLife") Web App</h3>
 
@@ -45,6 +41,12 @@
 ## About The Project
 
 ![SecondLife Web App Screen Shot](/public/images/SecondLife_Home.png)
+
+A marketplace application go give away unwanted items and save them from going to landfill. 
+
+You can add an item to give away by providing a title, description, image and contact details/location to let people know where to pick it up from. 
+Admins / logged in users can edit & delete their items, and mark them as taken. 
+The main page has a search functoinality and only shows available items.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -111,6 +113,9 @@
 - [ ] Add categories
 - [ ] Add image upload / multiple images functionality
 - [ ] Add pagination
+- [ ] Add location with latitude/longitude and the option to filter by location 
+- [ ] Add timestamp for date the item was added
+
 
 See the [open issues](https://github.com/kpo18/freecycle-web-app/issues) for a full list of proposed features (and known issues).
 
