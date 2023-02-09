@@ -71,10 +71,11 @@ router.post("/", async (req, res) => {
   const image = req.body.image;
   const location = req.body.location;
   const contact = req.body.contact;
+  const category = req.body.category;
 
   try {
     const result = await db(
-      `INSERT INTO items (title, description, image, location, contact) VALUES ('${title}', '${description}', '${image}', '${location}', '${contact}');`
+      `INSERT INTO items (title, description, image, location, contact, category) VALUES ('${title}', '${description}', '${image}', '${location}', '${contact}', '${category}');`
     );
     console.log(result);
     const response = await db("SELECT * FROM items ORDER BY id DESC;");
@@ -92,6 +93,7 @@ router.put("/:id", async (req, res) => {
   const image = req.body.image;
   const location = req.body.location;
   const contact = req.body.contact;
+  const category = req.body.category;
   const available = req.body.available; 
 
   try {
@@ -104,7 +106,7 @@ router.put("/:id", async (req, res) => {
     }
 
     await db(
-      `UPDATE items SET title = '${title}', description = '${description}', image = '${image}', location = '${location}', contact = '${contact}', available = '${available}' WHERE id = ${id}`
+      `UPDATE items SET title = '${title}', description = '${description}', image = '${image}', location = '${location}', contact = '${contact}', '${category}', available = '${available}' WHERE id = ${id}`
     );
 
     const items = await db("SELECT * FROM items ORDER BY id DESC;");

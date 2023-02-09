@@ -7,5 +7,6 @@ CREATE TABLE items (
     image TEXT NOT NULL, 
     location TEXT NOT NULL, 
     contact TEXT NOT NULL, 
-    available boolean not null default 1
-)
+    available boolean not null default 1, 
+    category TEXT NOT NULL
+);
