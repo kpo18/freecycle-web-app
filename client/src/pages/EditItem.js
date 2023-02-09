@@ -8,11 +8,12 @@ export function EditItem() {
   const { id } = useParams();
   let navigate = useNavigate();
   const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false);
   const [item, setItem] = useState(null);
   const [tempItem, setTempItem] = useState(); 
   const [changed, setChanged] = useState(false); 
 
+
+  // Check if changes were made
   useEffect(() => {
       if (!item) return; 
       if (!item) return; 
@@ -24,13 +25,13 @@ export function EditItem() {
         if (item.location !== tempItem.location) equal = false;
         if (item.contact !== tempItem.contact) equal = false;
         if (equal) setChanged(false);
-  })
+  },)
 
+  // Get item
   useEffect(() => {
       const getItem = async () => {
         try {
-          const item = await services.productService
-          .fetchOne(id);
+          const item = await services.productService.fetchOne(id);
           setItem(item);
           setTempItem(item);
         } catch(error) {
@@ -40,15 +41,10 @@ export function EditItem() {
       getItem();
     }, [id]);
 
+    // Update item
     const updateItem = async (id) => {
         try {
-            await fetch(`http://localhost:5050/items/${id}`, {
-            method: "PUT", 
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(tempItem)
-            });
+            await services.productService.updateItem({tempItem, id});
             setChanged(false); 
             navigate("/admin?updated=1");
         } catch(error) {
@@ -56,7 +52,11 @@ export function EditItem() {
         }
     } 
 
-  
+   // Show error & loading states
+  let state = <></>
+  if (error) {
+    state = <>{error}</>
+  } 
 
 
   return (
@@ -71,7 +71,7 @@ export function EditItem() {
           </Link>
           <div className="spacer-20"></div>
           <h2>Edit item</h2>
-          
+          {state}
           <div className="form-control">
               <div>
                 <label>TITLE</label>
@@ -88,7 +88,6 @@ export function EditItem() {
                         ...tempItem, 
                         title: e.target.value});
                       }}
-                      
                 />
               </div>
               <div>

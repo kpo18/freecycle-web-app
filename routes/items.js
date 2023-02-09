@@ -77,7 +77,7 @@ router.post("/", async (req, res) => {
       `INSERT INTO items (title, description, image, location, contact) VALUES ('${title}', '${description}', '${image}', '${location}', '${contact}');`
     );
     console.log(result);
-    const response = await db("SELECT * FROM items");
+    const response = await db("SELECT * FROM items ORDER BY id DESC;");
     res.status(201).send(response);
   } catch (error) {
     res.status(500).send(error);
@@ -107,7 +107,7 @@ router.put("/:id", async (req, res) => {
       `UPDATE items SET title = '${title}', description = '${description}', image = '${image}', location = '${location}', contact = '${contact}', available = '${available}' WHERE id = ${id}`
     );
 
-    const items = await db(`SELECT * FROM items `);
+    const items = await db("SELECT * FROM items ORDER BY id DESC;");
 
     res.status(200).send(items.data);
   } catch (error) {

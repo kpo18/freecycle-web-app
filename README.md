@@ -42,11 +42,11 @@
 
 ![SecondLife Web App Screen Shot](/public/images/SecondLife_Home.png)
 
-A marketplace application go give away unwanted items and save them from going to landfill. 
+A marketplace application to give away unwanted items and save them from going to landfill. 
 
 You can add an item to give away by providing a title, description, image and contact details/location to let people know where to pick it up from. 
 Admins / logged in users can edit & delete their items, and mark them as taken. 
-The main page has a search functoinality and only shows available items.
+The main page has a search functionality and only shows available items.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

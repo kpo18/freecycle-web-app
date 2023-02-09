@@ -6,23 +6,28 @@ import services from "../services";
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 
 export function ItemDetail() {
+  const [error, setError] = useState(null);
   const { id } = useParams();
   const [item, setItem] = useState(null);
 
+  // Get one item
   useEffect(() => {
-    const getItem = () => {
-      services.productService
-        .fetchOne(id)
-        .then((item) => {
-          setItem(item);
-          console.log(item);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+    const getItem = async () => {
+      try {
+        const item = await services.productService.fetchOne(id);
+        setItem(item);
+      } catch(error) {
+        setError(error);
+        }
     };
     getItem();
   }, [id]);
+
+  // Show error & loading states
+  let state = <></>
+  if (error) {
+    state = <>{error}</>
+  } 
 
   return (
     <div className="page-container">
@@ -35,7 +40,7 @@ export function ItemDetail() {
               &#171; BACK
             </Link>
             <div className="spacer-20"></div>
-
+            {state}
             <div className="item-detail-card">
               <div className="item-detail-grid">
                 <img

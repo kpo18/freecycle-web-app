@@ -15,10 +15,11 @@ export function AdminView() {
   const showSuccess = Object.fromEntries([...newItemAdded]);
   const showUpdated = Object.fromEntries([...itemUpdated]);
   const [popup, setPopup] = useState({
-    show: false, // initial values set to false and null
+    show: false, 
     id: null,
   });
 
+  // Get all items
   const getItems = async () => {
     setLoading(true);
     setError(null);
@@ -37,6 +38,7 @@ export function AdminView() {
   }, []);
 
 
+  // trigger popup 
   const handleDelete = (id) => {
     setPopup({
       show: true,
@@ -44,6 +46,7 @@ export function AdminView() {
     });
   }; 
 
+  // delete item if popup confirmed
   const handleDeleteTrue = async () => {
     if (popup.show && popup.id) {
       try {
@@ -54,11 +57,12 @@ export function AdminView() {
         });
         window.location.reload();
       } catch (error) {
-        console.log(error);
+        setError("Oops, something went wrong!");
       }
     }
   };
 
+  // cancel delete request
   const handleDeleteFalse = () => {
     setPopup({
       show: false,
@@ -66,30 +70,26 @@ export function AdminView() {
     });
   };
 
+  // set mark as taken
   const markAsTaken = async (id) => {
-    const response = await fetch(`http://localhost:5050/items/${id}`);
-    const itemToUpdate = await response.json(); 
+    const itemToUpdate = await services.productService.fetchOne(id);
 
     const takenItem = {
       ...itemToUpdate, available: 0
     };
     
-    const res = await fetch(`http://localhost:5050/items/${id}`, {
-      method: "PUT", 
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(takenItem)
-    });
+    const res = await services.productService.markTaken({takenItem, id});
     const data = await res.json();
     setItems(data); 
   }
 
+  // open edit item page
   const navigate = useNavigate();
   const openEditItem = (id) => {
     navigate(`/${id}/edit`);
   };
 
+  // Show error & loading states
   let state = <></>
   if (error) {
     state = <>{error}</>
@@ -129,7 +129,7 @@ export function AdminView() {
                   <div
                     key={index}
                     className="admin-items-card"
-                  >
+                    >
                     { item.available === 0 && <div className="item-taken">TAKEN</div> }
                     <img
                       className="items-img"
@@ -138,28 +138,23 @@ export function AdminView() {
                     />
                     <div className="items-text">
                       <h3>{item.title}</h3>
-                      
                       <div className="manage-item">
-                      { item.available === 1 && <><button className="btn-taken"  onClick={() => markAsTaken(item.id)}>Mark as taken
-                      </button> 
-                      <button className="edit-item" onClick={() => openEditItem(item.id)}>Edit item
-                      </button> 
-                      </>
-                      } 
-                      <button className="btn-delete" onClick={() => handleDelete(item.id)}>Delete item
-                      </button> 
-                      
-                      
+                        { item.available === 1 && <>
+                        <button className="btn-taken"  onClick={() => markAsTaken(item.id)}>Mark as taken
+                        </button> 
+                        <button className="edit-item" onClick={() => openEditItem(item.id)}>Edit item
+                        </button> 
+                        </>
+                        } 
+                        <button className="btn-delete" onClick={() => handleDelete(item.id)}>Delete item
+                        </button> 
                       </div>
-                      
                     </div>
                   </div>
                 );
               })}
             </div>
           </div>
-
-          
           {popup.show && (
             <Popup
               handleDeleteTrue={handleDeleteTrue}

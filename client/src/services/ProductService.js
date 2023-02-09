@@ -39,6 +39,26 @@ class ProductService {
     });
   }
 
+  markTaken({takenItem, id}) {
+    return fetch(`http://localhost:5050/items/${id}`, {
+      method: "PUT", 
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(takenItem)
+    });
+  }
+
+  updateItem({tempItem, id}) {
+    return fetch(`http://localhost:5050/items/${id}`, {
+      method: "PUT", 
+      headers: {
+          "Content-Type": "application/json"
+      },
+      body: JSON.stringify(tempItem)
+      });
+  }
+
 }
 
 export default ProductService;

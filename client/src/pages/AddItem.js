@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { Link, useNavigate } from "react-router-dom";
@@ -17,13 +17,13 @@ export function AddItem() {
     available: true
   });
 
+  // Add item from form input
   const handleChange = (event) => {
     const target = event.target;
     const name = target.name;
     const value = target.value;
 
     setItem((item) => ({ ...item, [name]: value }));
-    console.log(item);
   };
 
   const handleSubmit = (event) => {
@@ -44,6 +44,7 @@ export function AddItem() {
     }
   };
 
+  // Show error & loading states
   let state = <></>
   if (error) {
     state = <>{error}</>

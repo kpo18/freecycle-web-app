@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import SearchBar from "../components/SearchBar";
 import { Link, useNavigate } from "react-router-dom";
 import services from "../services";
 import SearchIcon from "@material-ui/icons/Search";
@@ -14,6 +13,7 @@ export function Home() {
   const [loading, setLoading] = useState(false);
 
 
+  // Get all available items
   const getItems = async () => {
     setLoading(true);
     setError(null);
@@ -31,32 +31,31 @@ export function Home() {
     getItems();
   }, []);
 
+  
+   // Open Item Detail
   const navigate = useNavigate();
 
-  // OpenItemDetail
   const openItemDetail = (id) => {
     navigate(`/${id}`);
   };
 
-  const handleSearch = async () => {
-    const items = await services.productService.fetchAllSearch(searchTerm);
-    setItems(items);
-  };
-
+   // Search bar functionality
   useEffect(() => {
-    //if(searchTerm.length === 0 || searchTerm.length >2)
+    const handleSearch = async () => {
+      const items = await services.productService.fetchAllSearch(searchTerm);
+      setItems(items);
+    };
      handleSearch();
   }, [searchTerm]);
 
 
-  //const availableItems = items.filter((item) => item.available === 1); 
-
+  // Show error & loading states
   let state = <></>
   if (error) {
     state = <>{error}</>
   } else if (loading) {
     state = <>Loading...</>;
-  }
+  } 
 
   return (
     <div className="page-container">
@@ -91,16 +90,7 @@ export function Home() {
           {state}
           <div>
           <div className="items-grid">
-          {
-            /* availableItems
-            .filter((item) => {
-              if(!searchTerm) {
-                return item; 
-              } else if(item.title.toLowerCase().includes(searchTerm.toLowerCase())) {
-                return item; 
-              } 
-          })*/
-          items.map((item, index) => {
+          {items.map((item, index) => {
               return (
                 <div
                   key={index}
