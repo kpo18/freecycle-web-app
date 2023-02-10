@@ -12,9 +12,30 @@ export function EditItem() {
   const [tempItem, setTempItem] = useState(); 
   const [changed, setChanged] = useState(false); 
 
+  const categories = [
+    { name: "Women Clothing and Accessories", id: 1 }, 
+    { name: "Men Clothing and Accessories", id: 2 },
+    { name: "Kids Clothing and Accessories", id: 3 },
+    { name: "Electronic", id: 4 },
+    { name: "Appliances", id: 5 },
+    { name: "Food", id: 6 },
+    { name: "Baby", id: 7 },
+    { name: "Furniture and Lighting", id: 8 },
+    { name: "Garden", id: 9 },
+    { name: "Indoor Plants", id: 10 },
+    { name: "Pet Food and Accessories", id: 11 },
+    { name: "Sports Equipment", id: 12 },
+    { name: "Kitchen", id: 13 }, 
+    { name: "Other", id: 14 }
+  ]; 
+
 
   // Check if changes were made
   useEffect(() => {
+    console.log("item", item);
+    console.log("tempItem", tempItem);
+
+
       if (!item) return; 
       if (!item) return; 
 
@@ -24,6 +45,7 @@ export function EditItem() {
         if (item.image !== tempItem.image) equal = false;
         if (item.location !== tempItem.location) equal = false;
         if (item.contact !== tempItem.contact) equal = false;
+        if (item.category !== tempItem.category) equal = false;
         if (equal) setChanged(false);
   },)
 
@@ -123,6 +145,21 @@ export function EditItem() {
                     }}
                 />
               </div>
+              <div>
+                <label>SELECT A CATEGORY</label>
+              </div>
+              <select 
+                name="category" 
+                value={tempItem.category} 
+                onChange={(e) => {
+                setChanged(true); 
+                setTempItem({
+                  ...tempItem,
+                  category: e.target.value});
+              }}>
+                {categories.map(category =>  <option key={category.id} value={category.name}>{category.name}</option>)}
+               
+              </select>
               <div>
                 <label>LOCATION</label>
               </div>

@@ -17,9 +17,10 @@ router.get("/", async (req, res) => {
 /* GET all available listings. */
 router.get("/filter", async (req, res) => {
   const { q } = req.query; 
+  const { category } = req.query;
   if (q) {
     try {
-      const response = await db(`SELECT * FROM items WHERE available = 1 AND title LIKE '%${q}%' ORDER BY id DESC;`);
+      const response = await db(`SELECT * FROM items WHERE available = 1 AND title LIKE "%${q}%" ORDER BY id DESC;`);
       const items = response.data; 
 
       if (!items) {
@@ -27,6 +28,19 @@ router.get("/filter", async (req, res) => {
         return; 
       }
       res.send(response.data); 
+    } catch(error) {
+      res.status(500).send(error);
+    }
+  } else if (category) {
+    try {
+      const response = await db(`SELECT * FROM items WHERE available = 1 AND category = "${category}" ORDER BY id DESC;`);
+      const items = response.data; 
+
+      if (!items) {
+        res.status(404).send("No matches found");
+        return; 
+      }
+      res.send(response.data);
     } catch(error) {
       res.status(500).send(error);
     }
@@ -75,7 +89,7 @@ router.post("/", async (req, res) => {
 
   try {
     const result = await db(
-      `INSERT INTO items (title, description, image, location, contact, category) VALUES ('${title}', '${description}', '${image}', '${location}', '${contact}', '${category}');`
+      `INSERT INTO items (title, description, image, location, contact, category) VALUES ("${title}", "${description}", "${image}", "${location}", "${contact}", "${category}");`
     );
     console.log(result);
     const response = await db("SELECT * FROM items ORDER BY id DESC;");
@@ -106,7 +120,7 @@ router.put("/:id", async (req, res) => {
     }
 
     await db(
-      `UPDATE items SET title = '${title}', description = '${description}', image = '${image}', location = '${location}', contact = '${contact}', '${category}', available = '${available}' WHERE id = ${id}`
+      `UPDATE items SET title = "${title}", description = "${description}", image = "${image}", category = "${category}", location = "${location}", contact = "${contact}", available = "${available}" WHERE id = ${id}`
     );
 
     const items = await db("SELECT * FROM items ORDER BY id DESC;");

@@ -70,18 +70,17 @@ The main page has a search functionality and only shows available items.
 
 - Run `npm install` in project directory to install server-related dependencies such as `express`.
 - `cd client` and run `npm install` to install client dependencies (React).
-- install nodemon, mysql, cors, material ui, react router dom
 
 ### Installation
 
 - Access the MySQL interface in your terminal by running `mysql -u root -p`
-- Create a new database called items: `create database items`
+- Create a new database: `create database freecycle`
 - Add a `.env` file to the project folder of this repository containing the MySQL authentication information for MySQL user. For example:
 
 ```bash
   DB_HOST=localhost
   DB_USER=root
-  DB_NAME=items
+  DB_NAME=freecycle
   DB_PASS=YOURPASSWORD
 ```
 
@@ -98,6 +97,8 @@ The main page has a search functionality and only shows available items.
 ![Userflow mockup](/public/images/MVP_Userflow_Mockup.svg)
 
 [Database schema](https://drawsql.app/teams/katja-pollmanns-team/diagrams/mvp-project)
+
+Currently only items exists, users table not yet created
 
 ![Database schema](/public/images/MVP_database_schema.png)
 

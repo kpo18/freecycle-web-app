@@ -14,6 +14,11 @@ class ProductService {
     return response.json();
   }
 
+  async fetchAllCategory(category) {
+    const response = await fetch(`http://localhost:5050/items/filter?category=${category}`); 
+    return response.json();
+  }
+
   async fetchOne(id) {
     const response = await fetch(`http://localhost:5050/items/${id}`); 
     return response.json();

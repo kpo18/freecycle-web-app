@@ -9,8 +9,26 @@ import LocationOnIcon from '@material-ui/icons/LocationOn';
 export function Home() {
   const [items, setItems] = useState([]);
   const [searchTerm, setSearchTerm] = useState(""); 
+  const [category, setCategory] = useState(""); 
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+
+  const categories = [
+    { name: "Women Clothing and Accessories", id: 1 }, 
+    { name: "Men Clothing and Accessories", id: 2 },
+    { name: "Kids Clothing and Accessories", id: 3 },
+    { name: "Electronic", id: 4 },
+    { name: "Appliances", id: 5 },
+    { name: "Food", id: 6 },
+    { name: "Baby", id: 7 },
+    { name: "Furniture and Lighting", id: 8 },
+    { name: "Garden", id: 9 },
+    { name: "Indoor Plants", id: 10 },
+    { name: "Pet Food and Accessories", id: 11 },
+    { name: "Sports Equipment", id: 12 },
+    { name: "Kitchen", id: 13 }, 
+    { name: "Other", id: 14 }
+  ]; 
 
 
   // Get all available items
@@ -48,6 +66,20 @@ export function Home() {
      handleSearch();
   }, [searchTerm]);
 
+  // category filter 
+  useEffect(() => {
+    const handleCategoryFilter = async () => {
+      try {
+        const items = await services.productService.fetchAllCategory(category);
+        setItems(items);
+      } catch (error) {
+        setError(error);
+      }
+    };
+    handleCategoryFilter();
+  }, [category]);
+
+
 
   // Show error & loading states
   let state = <></>
@@ -55,7 +87,9 @@ export function Home() {
     state = <>{error}</>
   } else if (loading) {
     state = <>Loading...</>;
-  } 
+  } else if (items?.length === 0) {
+    state = <><p>No items found that match your search. Why not try a different keyword or category?</p><button onClick={getItems} className="modal-cancel">View all items</button></>;
+  }
 
   return (
     <div className="page-container">
@@ -87,34 +121,38 @@ export function Home() {
               <input type="text" placeholder="filter by searching for an item" onChange={(event) => {setSearchTerm(event.target.value)}} />
             </div>
           </div>
+          <div>
+          <select onChange={(event) => {setCategory(event.target.value)}}>
+           {categories.map(category =>  <option key={category.id} value={category.name}>{category.name}</option>)}
+          </select>
+          </div>
           {state}
           <div>
-          <div className="items-grid">
-          {items.map((item, index) => {
-              return (
-                <div
-                  key={index}
-                  className="items-card"
-                  onClick={() => openItemDetail(item.id)}
-                >
-                  <img
-                    className="items-img"
-                    src={item.image}
-                    alt={item.title}
-                  />
-                  <div className="items-text">
-                    <h3>{item.title}</h3>
-                    <div className="location-container">
-                      <div className="location-icon"><LocationOnIcon/></div>
-                      <div className="location-text"><p>{item.location}</p></div>
+              <div className="items-grid">
+              {items.map((item, index) => {
+                  return (
+                    <div
+                      key={index}
+                      className="items-card"
+                      onClick={() => openItemDetail(item.id)}
+                    >
+                      <img
+                        className="items-img"
+                        src={item.image}
+                        alt={item.title}
+                      />
+                      <div className="items-text">
+                        <h3>{item.title}</h3>
+                        <div className="location-container">
+                          <div className="location-icon"><LocationOnIcon/></div>
+                          <div className="location-text"><p>{item.location}</p></div>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </div>
-              );
-            })
-          }
-        </div> 
-            
+                  );
+                })
+              }
+              </div> 
           </div>
         </div>
       </article>
