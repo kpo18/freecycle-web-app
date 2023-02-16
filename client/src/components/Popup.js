@@ -1,4 +1,4 @@
-import ClearRoundedIcon from '@material-ui/icons/ClearRounded';
+/* import ClearRoundedIcon from '@material-ui/icons/ClearRounded'; */
 
 function Popup({ handleDeleteTrue, handleDeleteFalse }) {
     return (
@@ -6,7 +6,9 @@ function Popup({ handleDeleteTrue, handleDeleteFalse }) {
         <div className="modal-box">
           <div className="modal-head">
               <p>Are you sure you want to delete this item?</p>
-              <div onClick={handleDeleteFalse}className="cancel-icon"><ClearRoundedIcon/></div>
+              <div onClick={handleDeleteFalse}className="cancel-icon">cancel icon goes here</div>
+
+
           </div>
           <button onClick={handleDeleteFalse}className="modal-cancel">Cancel</button>
           <button onClick={handleDeleteTrue} className="modal-delete">

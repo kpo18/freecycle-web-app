@@ -3,6 +3,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { Link, useNavigate } from "react-router-dom";
 import services from "../services";
+import axios from "axios";
 
 export function AddItem() {
   let navigate = useNavigate();
@@ -11,15 +12,20 @@ export function AddItem() {
   const [item, setItem] = useState({
     title: "",
     description: "",
-    image: "",
+
+    //image with take in image path 
+    image: null,
     location: "",
     contact: "",
     category: "",
-    available: true
+    available: true,
   });
 
+  //store image from form 
+  const [image, setImage] = useState(null);
+
   const categories = [
-    { name: "Women Clothing and Accessories", id: 1 }, 
+    { name: "Women Clothing and Accessories", id: 1 },
     { name: "Men Clothing and Accessories", id: 2 },
     { name: "Kids Clothing and Accessories", id: 3 },
     { name: "Electronic", id: 4 },
@@ -31,9 +37,9 @@ export function AddItem() {
     { name: "Indoor Plants", id: 10 },
     { name: "Pet Food and Accessories", id: 11 },
     { name: "Sports Equipment", id: 12 },
-    { name: "Kitchen", id: 13 }, 
-    { name: "Other", id: 14 }
-  ]; 
+    { name: "Kitchen", id: 13 },
+    { name: "Other", id: 14 },
+  ];
 
   // Add item from form input
   const handleChange = (event) => {
@@ -44,28 +50,58 @@ export function AddItem() {
     setItem((item) => ({ ...item, [name]: value }));
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    addItem(item);
+    //create a new data form object with the form values
+    const formData = new FormData();
+    //add key value pair
+    formData.append("image", image);
+    //wait for the item which should have the ID returned (from the backend then save it to a variable)
+   const itemResponse = await addItem(item);
+
+  /* PUT IMAGE FETCH HERE */
+  try {
+   
+   await axios({
+      method: "post",
+      url: `http://localhost:5050/items/${itemResponse.insertId}/single`,
+      data: formData,
+      headers: { "Content-Type": "multipart/form-data" },
+      
+    }); 
+    navigate("/admin?success=1");
+  } catch (error) {
+    console.log(error);
+  } 
+};
+
+  //saves the file name to state 
+  const handleImage = (e) => {
+    setImage(e.target.files[0]);
+    console.log(e.target.files);
   };
 
   const addItem = async (item) => {
     setLoading(true);
 
     try {
-      await services.productService.create(item);
-      navigate("/admin?success=1"); //navigates back to Admin when item was added
+      const newItem = await services.productService.create(item);
+      return newItem
+      /* navigate("/admin?success=1"); */ //navigates back to Admin when item was added
+      
     } catch (error) {
       setError("Oops! Something went wrong. Try again later");
     } finally {
       setLoading(false);
+  
     }
+     
   };
 
   // Show error & loading states
-  let state = <></>
+  let state = <></>;
   if (error) {
-    state = <>{error}</>
+    state = <>{error}</>;
   } else if (loading) {
     state = <>Loading...</>;
   }
@@ -111,7 +147,16 @@ export function AddItem() {
                 />
               </div>
               <div>
-                <label>IMAGE</label>
+                {/* changing this to be able to upload rather than paste link */}
+
+                <label>
+                  <input type="file" onChange={handleImage}/>IMAGE
+                </label>
+
+                {/* <div className="col">
+                {image && <img src={image} style={{ width: "100px" }} />}
+              </div> */}
+             {/*    <label>IMAGE</label>
               </div>
               <div>
                 <input
@@ -120,14 +165,22 @@ export function AddItem() {
                   value={item.image}
                   name="image"
                   onChange={(e) => handleChange(e)}
-                />
+  />*/}
               </div>
+
               <div>
                 <label>SELECT A CATEGORY</label>
               </div>
-              <select name="category" value={item.category} onChange={(e) => handleChange(e)}>
-                {categories.map(category =>  <option key={category.id} value={category.name}>{category.name}</option>)}
-               
+              <select
+                name="category"
+                value={item.category}
+                onChange={(e) => handleChange(e)}
+              >
+                {categories.map((category) => (
+                  <option key={category.id} value={category.name}>
+                    {category.name}
+                  </option>
+                ))}
               </select>
               <div>
                 <label>LOCATION</label>

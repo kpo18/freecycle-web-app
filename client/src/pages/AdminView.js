@@ -4,7 +4,7 @@ import Footer from "../components/Footer";
 import Popup from "../components/Popup";
 import { Link, useSearchParams, useNavigate } from "react-router-dom";
 import services from "../services";
-import CheckCircleRoundedIcon from '@material-ui/icons/CheckCircleRounded';
+/* import CheckCircleRoundedIcon from '@material-ui/icons/CheckCircleRounded'; */
 
 export function AdminView() {
   const [items, setItems] = useState([]);
@@ -110,13 +110,13 @@ export function AdminView() {
           <div className="spacer-20"></div>
           { showSuccess.success && (
             <div className="success">
-            <div className="location-icon"><CheckCircleRoundedIcon/></div>
+            <div className="location-icon">check circle rouned icon goes here</div>
             <div className="popup-text">Success! Your item has been added</div>
           </div>
           ) }
           { showUpdated.updated && (
             <div className="success">
-            <div className="location-icon"><CheckCircleRoundedIcon/></div>
+            <div className="location-icon">check circle rounded icon goes here</div>
             <div className="popup-text">Success! Your item has been updated</div>
           </div>
           ) }
@@ -133,7 +133,7 @@ export function AdminView() {
                     { item.available === 0 && <div className="item-taken">TAKEN</div> }
                     <img
                       className="items-img"
-                      src={item.image}
+                      src={`/images/${item.image}`}
                       alt={item.title}
                     />
                     <div className="items-text">

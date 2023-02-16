@@ -1,6 +1,66 @@
 var express = require("express");
 var router = express.Router();
 const db = require("../model/helper");
+//install multer- it's a node.s middleware for handling multipart/form-data, 
+//used for uploading files like images 
+const multer = require("multer");
+
+
+
+
+//Setting storage engine for multer
+const storageEngine = multer.diskStorage({
+  //destination is folder where the image with be stored locally
+  destination: "./public/images",
+  //the call bck function will trigger a function to give each file a unique name
+  filename: (req, file, cb) => {
+    cb(null, `${Date.now()}--${file.originalname}`);
+  },
+});
+
+//initializing multer and setting some limits about file size and file type
+const upload = multer({
+  storage: storageEngine,
+  limits: { fileSize: 1000000 },
+  fileFilter: (req, file, cb) => {
+    checkFileType(file, cb);
+  },
+});
+
+const path = require("path");
+
+const checkFileType = function (file, cb) {
+  //Allowed file extensions
+  const fileTypes = /jpeg|jpg|png|gif|svg/; //check extension names
+
+  const extName = fileTypes.test(path.extname(file.originalname).toLowerCase());
+
+  const mimeType = fileTypes.test(file.mimetype);
+
+  if (mimeType && extName) {
+    return cb(null, true);
+  } else {
+    cb("Error: You can Only Upload Images!!");
+  }
+};
+
+// post the image and Store the data and imagePath in your database
+router.post("/:id/single", upload.single("image"), async (req, res) => {
+  const data = req.body;
+  const imagePath = req.file.filename;
+
+  const id = Number(req.params.id);
+ 
+
+  await db(`UPDATE items SET image = '${imagePath}' WHERE id = ${id};`);
+
+  res.send({
+    status: "success",
+    message: "Image and data uploaded successfully",
+    data: data,
+    imagePath: imagePath,
+  });
+});
 
 // TODO: rename API to be /items/...
 
@@ -89,11 +149,16 @@ router.post("/", async (req, res) => {
 
   try {
     const result = await db(
-      `INSERT INTO items (title, description, image, location, contact, category) VALUES ("${title}", "${description}", "${image}", "${location}", "${contact}", "${category}");`
+      `INSERT INTO items (title, description, image, location, contact, category) VALUES ("${title}", "${description}", "${image}", "${location}", "${contact}", "${category}"); SELECT LAST_INSERT_ID()`
     );
     console.log(result);
     const response = await db("SELECT * FROM items ORDER BY id DESC;");
-    res.status(201).send(response);
+   
+    //returned last id after posting then saved that id to the variabe insertId
+    const insertId = result.data[0].insertId;
+    
+    //return the insertId as well as the response 
+    res.status(201).send({ response, insertId });
   } catch (error) {
     res.status(500).send(error);
   }

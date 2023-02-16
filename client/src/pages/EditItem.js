@@ -31,7 +31,7 @@ export function EditItem() {
 
 
   // Check if changes were made
-  useEffect(() => {
+/*   useEffect(() => {
     console.log("item", item);
     console.log("tempItem", tempItem);
 
@@ -47,7 +47,7 @@ export function EditItem() {
         if (item.contact !== tempItem.contact) equal = false;
         if (item.category !== tempItem.category) equal = false;
         if (equal) setChanged(false);
-  },)
+  },) */
 
   // Get item
   useEffect(() => {
