@@ -39,10 +39,17 @@ class ProductService {
     return itemResponse.json();
   }
 
-  //add image to be saved to local folder
- 
-
-
+  //fetch request for image
+  async createImage( itemResponse, formData) {
+    const imageResponse = await fetch(
+      `http://localhost:5050/items/${itemResponse.insertId}/single`,
+      {
+        method: "POST",
+        body: formData,
+      }
+    );
+    return imageResponse.json();
+  }
 
   delete(id) {
     return fetch(`http://localhost:5050/items/${id}`, {

@@ -13,7 +13,7 @@ export function AddItem() {
     title: "",
     description: "",
 
-    //image with take in image path 
+    //image with take in image path
     image: null,
     location: "",
     contact: "",
@@ -21,7 +21,7 @@ export function AddItem() {
     available: true,
   });
 
-  //store image from form 
+  //store image from form
   const [image, setImage] = useState(null);
 
   const categories = [
@@ -56,26 +56,24 @@ export function AddItem() {
     const formData = new FormData();
     //add key value pair
     formData.append("image", image);
+
     //wait for the item which should have the ID returned (from the backend then save it to a variable)
-   const itemResponse = await addItem(item);
+    const itemResponse = await addItem(item);
+    console.log(itemResponse);
 
-  /* PUT IMAGE FETCH HERE */
-  try {
-   
-   await axios({
-      method: "post",
-      url: `http://localhost:5050/items/${itemResponse.insertId}/single`,
-      data: formData,
-      headers: { "Content-Type": "multipart/form-data" },
-      
-    }); 
-    navigate("/admin?success=1");
-  } catch (error) {
-    console.log(error);
-  } 
-};
+    /* PUT IMAGE FETCH HERE */
+    try {
+      const newImage = await services.productService.createImage(
+        itemResponse,
+        formData
+      );
+      return newImage && navigate("/admin?success=1");
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-  //saves the file name to state 
+  //saves the file name to state
   const handleImage = (e) => {
     setImage(e.target.files[0]);
     console.log(e.target.files);
@@ -86,16 +84,13 @@ export function AddItem() {
 
     try {
       const newItem = await services.productService.create(item);
-      return newItem
+      return newItem;
       /* navigate("/admin?success=1"); */ //navigates back to Admin when item was added
-      
     } catch (error) {
       setError("Oops! Something went wrong. Try again later");
     } finally {
       setLoading(false);
-  
     }
-     
   };
 
   // Show error & loading states
@@ -150,13 +145,14 @@ export function AddItem() {
                 {/* changing this to be able to upload rather than paste link */}
 
                 <label>
-                  <input type="file" onChange={handleImage}/>IMAGE
+                  <input type="file" onChange={handleImage} />
+                  IMAGE
                 </label>
 
                 {/* <div className="col">
                 {image && <img src={image} style={{ width: "100px" }} />}
               </div> */}
-             {/*    <label>IMAGE</label>
+                {/*    <label>IMAGE</label>
               </div>
               <div>
                 <input
