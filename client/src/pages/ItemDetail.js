@@ -45,7 +45,7 @@ export function ItemDetail() {
               <div className="item-detail-grid">
                 <img
                   className="item-detail-img"
-                  src={item.image}
+                  src={`/images/${item.image}`}
                   alt={item.title}
                 />
                 <div className="item-detail-text">
