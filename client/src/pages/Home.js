@@ -6,6 +6,10 @@ import services from "../services";
 /* import SearchIcon from "@material-ui/icons/Search";
 import LocationOnIcon from '@material-ui/icons/LocationOn';
  */
+import { MdLocationOn} from "react-icons/md";
+import { MdSearch} from "react-icons/md";
+
+
 export function Home() {
   const [items, setItems] = useState([]);
   const [searchTerm, setSearchTerm] = useState(""); 
@@ -117,7 +121,7 @@ export function Home() {
           <h2>Recently added</h2>
           <div className="search">
             <div className="searchInputs">
-              <div className="searchIcon">search icon goes here</div>
+              <div className="searchIcon"><MdSearch/></div> {/* search icon goes here */}
               <input type="text" placeholder="filter by searching for an item" onChange={(event) => {setSearchTerm(event.target.value)}} />
             </div>
           </div>
@@ -144,7 +148,7 @@ export function Home() {
                       <div className="items-text">
                         <h3>{item.title}</h3>
                         <div className="location-container">
-                          <div className="location-icon">location icon goes here</div>
+                          <div className="location-icon"><MdLocationOn/></div> {/* location icon goes here */}
                           <div className="location-text"><p>{item.location}</p></div>
                         </div>
                       </div>

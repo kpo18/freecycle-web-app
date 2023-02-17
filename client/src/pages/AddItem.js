@@ -3,7 +3,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { Link, useNavigate } from "react-router-dom";
 import services from "../services";
-import axios from "axios";
+
 
 export function AddItem() {
   let navigate = useNavigate();
