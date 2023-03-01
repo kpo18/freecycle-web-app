@@ -59,7 +59,7 @@ export function AddItem() {
 
     //wait for the item which should have the ID returned (from the backend then save it to a variable)
     const itemResponse = await addItem(item);
-    console.log(itemResponse);
+  
 
     /* PUT IMAGE FETCH HERE */
     try {
@@ -69,14 +69,12 @@ export function AddItem() {
       );
       return newImage && navigate("/admin?success=1");
     } catch (error) {
-      console.log(error);
     }
   };
 
   //saves the file name to state
   const handleImage = (e) => {
     setImage(e.target.files[0]);
-    console.log(e.target.files);
   };
 
   const addItem = async (item) => {
@@ -149,19 +147,6 @@ export function AddItem() {
                   IMAGE
                 </label>
 
-                {/* <div className="col">
-                {image && <img src={image} style={{ width: "100px" }} />}
-              </div> */}
-                {/*    <label>IMAGE</label>
-              </div>
-              <div>
-                <input
-                  type="url"
-                  placeholder="upload a photo of your item"
-                  value={item.image}
-                  name="image"
-                  onChange={(e) => handleChange(e)}
-  />*/}
               </div>
 
               <div>
