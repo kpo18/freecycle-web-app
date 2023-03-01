@@ -3,7 +3,8 @@ import { Link, useParams } from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import services from "../services";
-import LocationOnIcon from '@material-ui/icons/LocationOn';
+/* import LocationOnIcon from '@material-ui/icons/LocationOn'; */
+import { MdLocationOn} from "react-icons/md";
 
 export function ItemDetail() {
   const [error, setError] = useState(null);
@@ -45,14 +46,14 @@ export function ItemDetail() {
               <div className="item-detail-grid">
                 <img
                   className="item-detail-img"
-                  src={item.image}
+                  src={`/images/${item.image}`}
                   alt={item.title}
                 />
                 <div className="item-detail-text">
                   <div>
                     <h3 className="item-detail-title">{item.title}</h3>
                     <div className="location-container">
-                          <div className="location-icon"><LocationOnIcon/></div>
+                          <div className="location-icon"> <MdLocationOn/></div> {/* location icon here */}
                           <div className="location-text"><p>{item.location}</p></div>
                         </div>
                     <p className="item-detail-heading">ITEM DESCRIPTION</p>
