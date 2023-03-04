@@ -56,7 +56,6 @@ export function AddItem() {
     const formData = new FormData();
     //add key value pair
     formData.append("image", image);
-
     //wait for the item which should have the ID returned (from the backend then save it to a variable)
     const itemResponse = await addItem(item);
   
@@ -90,6 +89,8 @@ export function AddItem() {
       setLoading(false);
     }
   };
+
+  
 
   // Show error & loading states
   let state = <></>;

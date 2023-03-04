@@ -6,10 +6,16 @@ var logger = require("morgan");
 var cors = require("cors");
 
 var apiRouter = require("./routes/items");
+var usersRouter = require("./routes/users")
 
 var app = express();
 
-app.use(cors());
+const corsOptions ={
+  origin:'http://localhost:3000', 
+  credentials:true,            //access-control-allow-credentials:true
+  optionSuccessStatus:200
+}
+app.use(cors(corsOptions));
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -17,6 +23,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/items", apiRouter);
+app.use("/users", usersRouter);
 
 // Anything that doesn't match the above, send back index.html
 app.get("*", (req, res) => {
